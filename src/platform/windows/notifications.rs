@@ -20,10 +20,10 @@ use windows_sys::Win32::{
 };
 
 const APP_ID: &str = "Hangar.Desktop";
-const WINDOW_CLASS: &str = "HerdrNotificationActivation";
+const WINDOW_CLASS: &str = "HangarNotificationActivation";
 const ACTIVATION_MESSAGE: &str = "Hangar.Notification.Activate";
 const SHOW_MESSAGE: u32 = WM_APP + 1;
-const ACTIVATOR: &str = "{D58C72D3-4548-4A40-B55B-092EF0B365C3}";
+const ACTIVATOR: &str = "{950EA2F4-9EE7-5326-931B-B5460F535A97}";
 
 type Callback = Arc<dyn Fn() + Send + Sync>;
 
