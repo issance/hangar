@@ -5070,7 +5070,7 @@ mod tests {
             std::env::temp_dir().join(format!("herdr-posix-bridge-{}", std::process::id()));
         let _ = fs::remove_dir_all(&directory);
         fs::create_dir_all(&directory).unwrap();
-        let executable = directory.join("herdr");
+        let executable = directory.join("hangar");
         fs::write(
             &executable,
             "#!/bin/sh\n\

@@ -2826,8 +2826,8 @@ mod tests {
             let opt_bin = root.join("opt/herdr/bin");
             fs::create_dir_all(&cellar_bin).unwrap();
             fs::create_dir_all(&opt_bin).unwrap();
-            let cellar_binary = cellar_bin.join("herdr");
-            let opt_binary = opt_bin.join("herdr");
+            let cellar_binary = cellar_bin.join("hangar");
+            let opt_binary = opt_bin.join("hangar");
             fs::write(&cellar_binary, b"").unwrap();
             std::os::unix::fs::symlink(&cellar_binary, &opt_binary).unwrap();
 
@@ -2847,8 +2847,8 @@ mod tests {
             let latest_bin = root.join("installs/herdr/latest/bin");
             fs::create_dir_all(&version_bin).unwrap();
             fs::create_dir_all(&latest_bin).unwrap();
-            let version_binary = version_bin.join("herdr");
-            let latest_binary = latest_bin.join("herdr");
+            let version_binary = version_bin.join("hangar");
+            let latest_binary = latest_bin.join("hangar");
             fs::write(&version_binary, b"").unwrap();
             std::os::unix::fs::symlink(&version_binary, &latest_binary).unwrap();
 
