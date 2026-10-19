@@ -227,13 +227,13 @@
           "key": "update.version_check",
           "type": "boolean",
           "default": "true",
-          "description": "Check herdr.dev for new Hangar versions in the background."
+          "description": "Check issance.com for new Hangar versions in the background."
         },
         {
           "key": "update.manifest_check",
           "type": "boolean",
           "default": "true",
-          "description": "Check herdr.dev for remote agent-detection manifest updates in the background. Bundled manifests and local overrides still apply."
+          "description": "Check issance.com for remote agent-detection manifest updates in the background. Bundled manifests and local overrides still apply."
         }
       ]
     },

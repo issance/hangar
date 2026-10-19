@@ -108,7 +108,7 @@ Small changes or small tasks are fine in the default main worktree. If you find 
 Use this layout:
 
 - shared integration checkout: `../hangar`
-- task worktrees: `../herdr-worktrees/<task-slug>`
+- task worktrees: `../hangar-worktrees/<task-slug>`
 - task branches: `issue/<id>-<slug>` when an issue exists
 
 Do all code edits, tests, and validation inside the task worktree.
@@ -158,7 +158,7 @@ For broad refactors or release-risk regressions, classify the risk before editin
 
 When testing a new Hangar build from inside an existing Hangar session, use
 `cargo run -- ...` and clear inherited Hangar socket overrides so the debug
-binary talks to the debug `herdr-dev` server instead of the installed stable
+binary talks to the debug `hangar-dev` server instead of the installed stable
 server:
 
 ```bash
@@ -196,7 +196,7 @@ manual testing, reset `C:\work\repo` back to a clean checkout before finishing.
 
 ## Agent Detection Updates
 
-Agent detection changes should use the manifest hot-reload loop. Use the project-local `herdr-throwaway-repro` skill to create a disposable named session and drive the real agent UI through Hangar's CLI/API into the target state. Read the pane with `hangar agent read <pane> --source detection --format text` and inspect matching with `hangar agent explain <pane> --json`. Update the bundled manifest in `src/detect/manifests/<agent>.toml`, copy that manifest to the local override path at `~/.config/hangar/agent-detection/<agent>.toml`, then run `hangar server reload-agent-manifests` against the session under test. Before writing the override, check whether one already exists; never overwrite or remove a pre-existing override without alignment. Once the rule is correct, remove the temporary override or restore the previous one exactly so the committed bundled manifest remains the source of truth.
+Agent detection changes should use the manifest hot-reload loop. Use the project-local `hangar-throwaway-repro` skill to create a disposable named session and drive the real agent UI through Hangar's CLI/API into the target state. Read the pane with `hangar agent read <pane> --source detection --format text` and inspect matching with `hangar agent explain <pane> --json`. Update the bundled manifest in `src/detect/manifests/<agent>.toml`, copy that manifest to the local override path at `~/.config/hangar/agent-detection/<agent>.toml`, then run `hangar server reload-agent-manifests` against the session under test. Before writing the override, check whether one already exists; never overwrite or remove a pre-existing override without alignment. Once the rule is correct, remove the temporary override or restore the previous one exactly so the committed bundled manifest remains the source of truth.
 
 Unit-test Hangar's detection engine, not individual CLI agents' screen or title conventions. Use synthetic manifests and minimal input strings to test parsing, regions, matching, AND/OR/NOT gates, rule priority, skip-state semantics, source precedence, cache reload behavior, and update flow. Keep bundled-manifest schema validation, process identification, and integration hook/protocol tests. Do not add tests that classify captured or invented CLI screens against bundled agent rules, or freeze an agent's specific detection rule IDs and priorities.
 
@@ -306,11 +306,11 @@ Before the first stable Windows release, publish and verify a preview containing
 
 The release workflows must publish these five assets:
 
-- `herdr-linux-x86_64`
-- `herdr-linux-aarch64`
-- `herdr-macos-x86_64`
-- `herdr-macos-aarch64`
-- `herdr-windows-x86_64.zip`
+- `hangar-linux-x86_64`
+- `hangar-linux-aarch64`
+- `hangar-macos-x86_64`
+- `hangar-macos-aarch64`
+- `hangar-windows-x86_64.zip`
 
 The Windows archive must contain `hangar.exe` and its app-local ConPTY runtime. Do not publish a bare executable as the stable Windows asset.
 

@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Triage open hangar GitHub issues into a concise decision-first Markdown table. Use when the user says "triage", asks to triage open issues, asks which issues need attention, or wants issue priority/recommendation lights for herdr.
+description: Triage open hangar GitHub issues into a concise decision-first Markdown table. Use when the user says "triage", asks to triage open issues, asks which issues need attention, or wants issue priority/recommendation lights for hangar.
 ---
 
 # Hangar Issue Triage

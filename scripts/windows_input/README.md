@@ -93,13 +93,13 @@ supply arrays normally:
   -Widths 120 -Heights 30
 ```
 
-`-Paths herdr-remote` runs the current client against its disposable local
+`-Paths hangar-remote` runs the current client against its disposable local
 server with the remote clipboard bridge active. It needs no SSH host. A focused
 clipboard-image qualification is:
 
 ```powershell
 .\scripts\test_windows_input.ps1 -AllowInputInjection -ClearClipboard `
-  -Channels stable -Paths direct,herdr-remote -Modes legacy `
+  -Channels stable -Paths direct,hangar-remote -Modes legacy `
   -Cases clipboard-image,clipboard-mixed -Widths 80 -Heights 24
 ```
 

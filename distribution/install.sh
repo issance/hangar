@@ -9,7 +9,7 @@ main() {
     echo ""
     echo "      ,ww"
     echo "     wWWWWWWW_)  hangar installer"
-    echo "     \`WWWWWW'    herdr.dev"
+    echo "     \`WWWWWW'    issance.com"
     echo "      II  II"
     echo ""
 
@@ -43,7 +43,7 @@ main() {
     TARGET="${os}-${arch}"
     log "fetching latest release manifest..."
     MANIFEST="$(curl -fsSL --retry 3 --connect-timeout 10 --max-time 20 "$MANIFEST_URL")" \
-        || err "can't reach ${MANIFEST_URL}. Please try again later; herdr.dev might be down. Who let the sheeps out? baaa."
+        || err "can't reach ${MANIFEST_URL}. Please try again later; issance.com might be down. Who let the sheeps out? baaa."
     URL="$(printf '%s\n' "$MANIFEST" | awk -v target="\"${TARGET}\"" '
         /^[[:space:]]*"assets"[[:space:]]*:/ { in_assets = 1; next }
         in_assets && /^[[:space:]]*}/ { exit }

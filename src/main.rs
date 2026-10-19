@@ -126,10 +126,10 @@ const DEFAULT_CONFIG: &str = r##"# hangar configuration
 # so existing preview installs stay there until explicitly switched.
 # channel = "stable"
 
-# Check herdr.dev for new Hangar versions in the background.
+# Check issance.com for new Hangar versions in the background.
 # version_check = true
 
-# Check herdr.dev for remote agent-detection manifest updates in the background.
+# Check issance.com for remote agent-detection manifest updates in the background.
 # manifest_check = true
 
 [keys]
@@ -633,7 +633,7 @@ fn main() -> io::Result<()> {
         println!();
         println!("Common commands:");
         for (command, description) in [
-            ("herdr", "Launch or attach to the persistent session"),
+            ("hangar", "Launch or attach to the persistent session"),
             (
                 "hangar status [server|client]",
                 "Show local client and running server status",

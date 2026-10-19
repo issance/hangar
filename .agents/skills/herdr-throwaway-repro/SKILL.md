@@ -1,5 +1,5 @@
 ---
-name: herdr-throwaway-repro
+name: hangar-throwaway-repro
 description: Create and control a disposable named Hangar session from inside an existing Hangar session. Use for isolated Hangar runtime, pane, terminal, process, API, persistence, or agent reproductions that should be driven through the CLI/API without touching the default session.
 ---
 
