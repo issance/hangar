@@ -504,8 +504,8 @@ Hangar はローカルソケット上の改行区切り JSON を使います。U
 名前付きセッションは別のソケットを持ちます:
 
 ```text
-~/.config/herdr/herdr.sock
-~/.config/herdr/sessions/<name>/herdr.sock
+~/.config/hangar/herdr.sock
+~/.config/hangar/sessions/<name>/herdr.sock
 ```
 
 解決順:
@@ -705,7 +705,7 @@ hangar agent wait w1:p1 --until blocked
     "manifests": [
       {
         "agent": "cursor",
-        "source": "/home/me/.config/herdr/agent-detection/cursor.toml",
+        "source": "/home/me/.config/hangar/agent-detection/cursor.toml",
         "source_kind": "local override",
         "active_version": "2026.06.10.1",
         "cached_remote_version": "2026.06.10.1",

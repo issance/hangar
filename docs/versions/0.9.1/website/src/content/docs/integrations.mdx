@@ -53,7 +53,7 @@ hangar integration uninstall antigravity-cli
 hangar integration uninstall grok
 ```
 
-Hangar saves integration configs atomically on Linux/macOS and for new files; existing Windows files keep their permissions through a backup-first, in-place update. If Windows reports a backup, close the agent and inspect the config before retrying: discard—not restore—an unfinished `.herdr-backup.pending` only after verifying the config, or restore completed `.herdr-backup` contents into the existing file if needed (if missing, establish its intended permissions first), then verify the config and remove the backup.
+Hangar saves integration configs atomically on Linux/macOS and for new files; existing Windows files keep their permissions through a backup-first, in-place update. If Windows reports a backup, close the agent and inspect the config before retrying: discard—not restore—an unfinished `.hangar-backup.pending` only after verifying the config, or restore completed `.hangar-backup` contents into the existing file if needed (if missing, establish its intended permissions first), then verify the config and remove the backup.
 
 ## How Hangar uses integrations
 

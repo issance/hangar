@@ -1,4 +1,4 @@
-# herdr
+# hangar
 
 Terminal based agent runtime for coding agents.
 
@@ -16,7 +16,7 @@ These instructions are layered.
   cannot be verified, skip maintainer workflow and follow the external
   contributor guardrail instead.
 - Local Can machine workflow applies only on Can's own workstation or Windows
-  VM setup, for example when `/home/can/Projects/herdr`, `HERDR_ENV=1`, or the
+  VM setup, for example when `/home/can/Projects/hangar`, `HERDR_ENV=1`, or the
   `windows-wirt` SSH alias exists. If those facts are not true, skip local
   machine workflow.
 - External contributor guardrail applies whenever the acting GitHub account is
@@ -107,7 +107,7 @@ Small changes or small tasks are fine in the default main worktree. If you find 
 
 Use this layout:
 
-- shared integration checkout: `../herdr`
+- shared integration checkout: `../hangar`
 - task worktrees: `../herdr-worktrees/<task-slug>`
 - task branches: `issue/<id>-<slug>` when an issue exists
 
@@ -179,14 +179,14 @@ Connect to it with the `windows-wirt` SSH alias.
 
 Use the single reusable checkout at `C:\work\repo`. Do not create additional
 persistent Hangar clones or worktrees on the VM. The Windows account is already
-named `herdr`, so avoid paths like `C:\Users\herdr\herdr`.
+named `hangar`, so avoid paths like `C:\Users\hangar\hangar`.
 
 Before validating a fix on Windows, sync or apply the Linux worktree changes
 into `C:\work\repo`, then run the needed Windows build or test commands there.
-Reuse the shared Rust caches under `C:\Users\herdr\.cargo` and
-`C:\Users\herdr\.rustup`. Do not use WSL on the VM. The VM may have a newer
+Reuse the shared Rust caches under `C:\Users\hangar\.cargo` and
+`C:\Users\hangar\.rustup`. Do not use WSL on the VM. The VM may have a newer
 Zig on `PATH`; Hangar currently requires Zig 0.16.0, so set
-`$env:ZIG = "C:\Users\herdr\zig-0.16.0\zig.exe"` before running Cargo commands
+`$env:ZIG = "C:\Users\hangar\zig-0.16.0\zig.exe"` before running Cargo commands
 that build the vendored libghostty-vt.
 
 After validation, leave `C:\work\repo` clean. Remove temporary files and delete
@@ -196,7 +196,7 @@ manual testing, reset `C:\work\repo` back to a clean checkout before finishing.
 
 ## Agent Detection Updates
 
-Agent detection changes should use the manifest hot-reload loop. Use the project-local `herdr-throwaway-repro` skill to create a disposable named session and drive the real agent UI through Hangar's CLI/API into the target state. Read the pane with `hangar agent read <pane> --source detection --format text` and inspect matching with `hangar agent explain <pane> --json`. Update the bundled manifest in `src/detect/manifests/<agent>.toml`, copy that manifest to the local override path at `~/.config/herdr/agent-detection/<agent>.toml`, then run `hangar server reload-agent-manifests` against the session under test. Before writing the override, check whether one already exists; never overwrite or remove a pre-existing override without alignment. Once the rule is correct, remove the temporary override or restore the previous one exactly so the committed bundled manifest remains the source of truth.
+Agent detection changes should use the manifest hot-reload loop. Use the project-local `herdr-throwaway-repro` skill to create a disposable named session and drive the real agent UI through Hangar's CLI/API into the target state. Read the pane with `hangar agent read <pane> --source detection --format text` and inspect matching with `hangar agent explain <pane> --json`. Update the bundled manifest in `src/detect/manifests/<agent>.toml`, copy that manifest to the local override path at `~/.config/hangar/agent-detection/<agent>.toml`, then run `hangar server reload-agent-manifests` against the session under test. Before writing the override, check whether one already exists; never overwrite or remove a pre-existing override without alignment. Once the rule is correct, remove the temporary override or restore the previous one exactly so the committed bundled manifest remains the source of truth.
 
 Unit-test Hangar's detection engine, not individual CLI agents' screen or title conventions. Use synthetic manifests and minimal input strings to test parsing, regions, matching, AND/OR/NOT gates, rule priority, skip-state semantics, source precedence, cache reload behavior, and update flow. Keep bundled-manifest schema validation, process identification, and integration hook/protocol tests. Do not add tests that classify captured or invented CLI screens against bundled agent rules, or freeze an agent's specific detection rule IDs and priorities.
 

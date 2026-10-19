@@ -15,7 +15,7 @@ Install native Windows beta builds with PowerShell:
 powershell -ExecutionPolicy Bypass -c "irm https://issance.com/install.ps1 | iex"
 ```
 
-Windows beta builds ship only through the preview channel. Hangar defaults to preview on Windows without changing your config. The installer stores releases under `%USERPROFILE%\.herdr\packages\standalone\releases`, points `%LOCALAPPDATA%\Programs\Hangar\bin` at the current release, and keeps a small number of older releases so running processes do not block updates.
+Windows beta builds ship only through the preview channel. Hangar defaults to preview on Windows without changing your config. The installer stores releases under `%USERPROFILE%\.hangar\packages\standalone\releases`, points `%LOCALAPPDATA%\Programs\Hangar\bin` at the current release, and keeps a small number of older releases so running processes do not block updates.
 
 For internal beta testing, `HERDR_MANIFEST_URL` can point the installer at a custom manifest instead of Hangar's stable or preview manifest.
 

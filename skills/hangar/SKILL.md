@@ -1,11 +1,11 @@
 ---
-name: herdr
+name: hangar
 description: "Control Hangar, a terminal multiplexer for coding agents. Use only when the user explicitly mentions Hangar or asks to use Hangar to inspect or control panes, tabs, workspaces, commands, or another agent. Do not use merely because a task could benefit from a background terminal, delegation, or parallel work. Requires HERDR_ENV=1."
 ---
 
 # Hangar
 
-Hangar organizes terminals into workspaces, tabs, and panes, recognizes coding agents running inside panes, and exposes the current session through the `herdr` CLI.
+Hangar organizes terminals into workspaces, tabs, and panes, recognizes coding agents running inside panes, and exposes the current session through the `hangar` CLI.
 
 Before issuing any control command, verify that this agent is running inside a Hangar-managed pane:
 
@@ -15,7 +15,7 @@ test "${HERDR_ENV:-}" = 1
 
 If the check fails, say that you are not running inside Hangar and stop. Do not inspect or control the focused Hangar session from outside Hangar.
 
-When the check passes, the `herdr` binary in `PATH` talks to the current session. Use it to inspect neighboring work, create terminal layout, start agents and commands, read output, and wait for state changes.
+When the check passes, the `hangar` binary in `PATH` talks to the current session. Use it to inspect neighboring work, create terminal layout, start agents and commands, read output, and wait for state changes.
 
 ## Learn the current CLI
 
@@ -40,7 +40,7 @@ hangar session
 hangar machine
 ```
 
-Do not run bare `herdr` for discovery; it launches or attaches the TUI. Do not probe a mutating nested command by omitting arguments. Commands such as `hangar workspace create` are valid with defaults and will execute.
+Do not run bare `hangar` for discovery; it launches or attaches the TUI. Do not probe a mutating nested command by omitting arguments. Commands such as `hangar workspace create` are valid with defaults and will execute.
 
 Most control commands return JSON. Read identifiers and state from those responses instead of predicting them.
 

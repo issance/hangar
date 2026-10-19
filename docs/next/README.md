@@ -1,8 +1,8 @@
-# herdr
+# hangar
 
 
 <p align="center">
-  <img src="assets/logo.png" alt="herdr" width="100" />
+  <img src="assets/logo.png" alt="hangar" width="100" />
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   <a href="https://github.com/issance/hangar/releases"><img src="https://img.shields.io/github/downloads/issance/hangar/total?labelColor=333333&color=666666" alt="total GitHub release downloads" /></a>
   <a href="https://github.com/issance/hangar/stargazers"><img src="https://img.shields.io/github/stars/issance/hangar?labelColor=333333&color=666666&logo=github" alt="GitHub stars" /></a>
   <a href="https://github.com/issance/hangar/releases/latest"><img src="https://img.shields.io/github/v/release/issance/hangar?label=release&labelColor=333333&color=666666" alt="latest stable release" /></a>
-  <a href="https://formulae.brew.sh/formula/herdr"><img src="https://img.shields.io/homebrew/v/herdr?label=homebrew&labelColor=333333&color=666666" alt="Homebrew version" /></a>
+  <a href="https://formulae.brew.sh/formula/hangar"><img src="https://img.shields.io/homebrew/v/hangar?label=homebrew&labelColor=333333&color=666666" alt="Homebrew version" /></a>
   <a href="https://x.com/herdrdev"><img src="https://img.shields.io/badge/follow-%40herdrdev-000000?logo=x&logoColor=white" alt="follow @herdrdev on X" /></a>
 </p>
 
@@ -45,15 +45,15 @@ https://github.com/user-attachments/assets/043ec09f-4bdd-41d5-aee0-8fda6b83e267
 curl -fsSL https://issance.com/install.sh | sh
 ```
 
-or `brew install hangar` · `mise use -g herdr` · windows: `powershell -ExecutionPolicy Bypass -c "irm https://issance.com/install.ps1 | iex"` · [endpoint-protected Windows](https://issance.com/docs/hangar/windows-beta/) · [binaries](https://github.com/issance/hangar/releases)
+or `brew install hangar` · `mise use -g hangar` · windows: `powershell -ExecutionPolicy Bypass -c "irm https://issance.com/install.ps1 | iex"` · [endpoint-protected Windows](https://issance.com/docs/hangar/windows-beta/) · [binaries](https://github.com/issance/hangar/releases)
 
 then start it where the work lives:
 
 ```bash
-herdr
+hangar
 ```
 
-run your agents, split panes, walk away. `ctrl+b q` detaches, `herdr` reattaches. [quick start →](https://issance.com/docs/hangar/quick-start/)
+run your agents, split panes, walk away. `ctrl+b q` detaches, `hangar` reattaches. [quick start →](https://issance.com/docs/hangar/quick-start/)
 
 ## docs
 
@@ -73,7 +73,7 @@ if you are an ai agent helping with this repository, read [`AGENTS.md`](./AGENTS
 
 ```bash
 git clone https://github.com/issance/hangar
-cd herdr
+cd hangar
 cargo build --release
 
 just test        # unit tests

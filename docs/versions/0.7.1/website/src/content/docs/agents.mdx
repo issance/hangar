@@ -60,7 +60,7 @@ Bundled manifests live inside Hangar. Hangar also checks herdr.dev for remote ma
 Local overrides can replace a remote or bundled manifest from the platform config directory:
 
 ```text
-~/.config/herdr/agent-detection/<agent>.toml
+~/.config/hangar/agent-detection/<agent>.toml
 ```
 
 Local overrides always win. Without a local override, Hangar uses the newer compatible manifest between the cached remote manifest and the bundled manifest in the running binary. On debug builds, the same config helper may use a development directory such as `herdr-dev`. Invalid override files are ignored with a warning and Hangar falls back to the cached remote or bundled manifest for that agent.

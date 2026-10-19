@@ -12,7 +12,7 @@ Hangar は設定ファイルなしで動作します。キー、テーマ、サ�
 Hangar は次の場所から設定を読み込みます:
 
 ```text
-Linux and macOS: ~/.config/herdr/config.toml
+Linux and macOS: ~/.config/hangar/config.toml
 Windows:          %APPDATA%\herdr\config.toml
 ```
 
@@ -27,7 +27,7 @@ hangar --default-config
 完全な出発点が欲しい場合は、これを設定として保存してください:
 
 ```bash
-hangar --default-config > ~/.config/herdr/config.toml
+hangar --default-config > ~/.config/hangar/config.toml
 ```
 
 設定値が無効な場合、Hangar は安全なデフォルト値にフォールバックし、起動時に警告を表示します。
@@ -454,9 +454,9 @@ switch_ascii_input_source_in_prefix = true
 主なログファイル:
 
 ```text
-~/.config/herdr/herdr.log
-~/.config/herdr/herdr-client.log
-~/.config/herdr/herdr-server.log
+~/.config/hangar/hangar.log
+~/.config/hangar/hangar-client.log
+~/.config/hangar/hangar-server.log
 ```
 
 ログは自動的にローテーションされます。問題を報告するときは、現在のログとローテーションされた関連ファイルを含めてください。

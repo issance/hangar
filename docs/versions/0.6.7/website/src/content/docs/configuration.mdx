@@ -10,7 +10,7 @@ Hangar works without a config file. Add one when you want custom keys, themes, s
 Hangar reads config from:
 
 ```text
-~/.config/herdr/config.toml
+~/.config/hangar/config.toml
 ```
 
 Print the full default config:
@@ -22,7 +22,7 @@ hangar --default-config
 Save it as your config if you want a complete starting point:
 
 ```bash
-hangar --default-config > ~/.config/herdr/config.toml
+hangar --default-config > ~/.config/hangar/config.toml
 ```
 
 If a config value is invalid, Hangar falls back to a safe default and shows a startup warning.
@@ -448,9 +448,9 @@ Logs are useful when diagnosing startup warnings, integration state, or socket A
 Common log files:
 
 ```text
-~/.config/herdr/herdr.log
-~/.config/herdr/herdr-client.log
-~/.config/herdr/herdr-server.log
+~/.config/hangar/hangar.log
+~/.config/hangar/hangar-client.log
+~/.config/hangar/hangar-server.log
 ```
 
 Logs rotate automatically. Include the current log and rotated siblings when reporting issues.

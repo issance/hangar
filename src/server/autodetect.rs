@@ -283,7 +283,7 @@ pub fn wait_for_server_socket(socket_path: &Path, timeout: Duration) -> io::Resu
             "server did not become ready within {}s (socket: {}). The background server may still be starting; try `herdr` again, or check {}",
             timeout.as_secs(),
             socket_path.display(),
-            crate::session::data_dir().join("herdr-server.log").display()
+            crate::session::data_dir().join("hangar-server.log").display()
         ),
     ))
 }

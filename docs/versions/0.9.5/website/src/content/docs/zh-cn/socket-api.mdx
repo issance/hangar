@@ -495,8 +495,8 @@ Hangar 在本地 socket 上使用换行分隔的 JSON。在 Unix 上,那个 sock
 命名会话有各自独立的 socket:
 
 ```text
-~/.config/herdr/herdr.sock
-~/.config/herdr/sessions/<name>/herdr.sock
+~/.config/hangar/herdr.sock
+~/.config/hangar/sessions/<name>/herdr.sock
 ```
 
 解析顺序:
@@ -718,7 +718,7 @@ hangar agent wait w1:p1 --until blocked
     "manifests": [
       {
         "agent": "cursor",
-        "source": "/home/me/.config/herdr/agent-detection/cursor.toml",
+        "source": "/home/me/.config/hangar/agent-detection/cursor.toml",
         "source_kind": "local override",
         "active_version": "2026.06.10.1",
         "cached_remote_version": "2026.06.10.1",

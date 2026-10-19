@@ -683,7 +683,7 @@ fn unloaded_session_survives_autosave_and_shutdown_when_recovery_is_blocked() {
         Duration::from_secs(10),
         Duration::from_millis(25),
         || {
-            fs::read_to_string(data_dir.join("herdr-server.log"))
+            fs::read_to_string(data_dir.join("hangar-server.log"))
                 .is_ok_and(|log| log.contains("event=\"persist.save\""))
         }
     ));
@@ -720,7 +720,7 @@ fn session_appearing_after_startup_is_preserved_before_autosave() {
         Duration::from_secs(10),
         Duration::from_millis(25),
         || {
-            fs::read_to_string(data_dir.join("herdr-server.log"))
+            fs::read_to_string(data_dir.join("hangar-server.log"))
                 .is_ok_and(|log| log.contains("event=\"persist.save\""))
         }
     ));

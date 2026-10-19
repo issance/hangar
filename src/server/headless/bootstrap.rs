@@ -231,7 +231,7 @@ fn print_ready_message(api_socket: &Path, client_socket: &Path) {
         api_socket.display(),
         client_socket.display(),
         crate::session::data_dir()
-            .join("herdr-server.log")
+            .join("hangar-server.log")
             .display()
     );
     // The launching terminal may already be gone; the server keeps running.
@@ -240,5 +240,5 @@ fn print_ready_message(api_socket: &Path, client_socket: &Path) {
 
 /// Initialize logging for the server process.
 fn init_logging() {
-    crate::logging::init_file_logging("herdr-server.log");
+    crate::logging::init_file_logging("hangar-server.log");
 }

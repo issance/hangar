@@ -36,7 +36,7 @@ hangar pane
 hangar agent
 ```
 
-Inspect nested command help before using unfamiliar or potentially mutating commands. Do not run bare `herdr` for discovery because it launches or attaches the TUI.
+Inspect nested command help before using unfamiliar or potentially mutating commands. Do not run bare `hangar` for discovery because it launches or attaches the TUI.
 
 Record which Hangar binary and version the reproduction tests. If testing a checkout build, follow the repository's instructions for running that build instead of silently substituting the installed binary.
 

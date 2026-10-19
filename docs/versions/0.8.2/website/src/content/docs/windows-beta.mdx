@@ -21,7 +21,7 @@ curl.exe -fsSLo install.cmd https://issance.com/install.cmd && install.cmd && de
 
 Windows builds are available through both stable and preview update channels. New installs use stable by default, and stable is recommended for normal use. Existing preview installs stay on preview until you run `hangar channel set stable`. If an older preview build rejects that command, run `hangar update` once on preview and retry. Preview provides newer, less-tested fixes from `master` and may regress; opt in with `hangar channel set preview` only when you want that tradeoff.
 
-The installer stores releases under `%USERPROFILE%\.herdr\packages\standalone\releases`, points `%LOCALAPPDATA%\Programs\Hangar\bin` at the current release, and keeps a small number of older releases so running processes do not block updates.
+The installer stores releases under `%USERPROFILE%\.hangar\packages\standalone\releases`, points `%LOCALAPPDATA%\Programs\Hangar\bin` at the current release, and keeps a small number of older releases so running processes do not block updates.
 
 For internal testing, `HERDR_MANIFEST_URL` can point the installer at a custom manifest instead of Hangar's stable or preview manifest. Set `HERDR_CHANNEL=preview` with a custom preview manifest.
 

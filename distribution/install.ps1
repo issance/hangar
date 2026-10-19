@@ -713,7 +713,7 @@ switch ($architecture) {
 }
 
 $herdrHome = if ([string]::IsNullOrWhiteSpace($env:HERDR_HOME)) {
-    Join-Path $env:USERPROFILE ".herdr"
+    Join-Path $env:USERPROFILE ".hangar"
 } else {
     $env:HERDR_HOME
 }

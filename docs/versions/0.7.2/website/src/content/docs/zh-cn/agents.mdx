@@ -61,7 +61,7 @@ Claude Code、Codex、GitHub Copilot CLI、Droid、Qoder CLI 和 Cursor Agent CL
 本地覆盖可以从平台配置目录替换远程或内置清单:
 
 ```text
-~/.config/herdr/agent-detection/<agent>.toml
+~/.config/hangar/agent-detection/<agent>.toml
 ```
 
 本地覆盖始终优先。没有本地覆盖时,Hangar 在缓存的远程清单和运行中二进制文件内置的清单之间,选择更新且兼容的那个。在调试构建上,同一个配置助手可能使用 `herdr-dev` 之类的开发目录。无效的覆盖文件会被忽略并给出警告,Hangar 会对该智能体回退到缓存的远程或内置清单。

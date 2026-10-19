@@ -447,7 +447,7 @@ mod tests {
                 );
                 let output = String::from_utf8(output).unwrap();
                 assert!(
-                    output.contains(&format!("Usage: herdr {}", path.join(" "))),
+                    output.contains(&format!("Usage: hangar {}", path.join(" "))),
                     "unexpected help for herdr {}: {output}",
                     path.join(" ")
                 );

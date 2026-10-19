@@ -10,7 +10,7 @@ Hangar 无需配置文件即可工作。当你想要自定义按键、主题、�
 Hangar 从这里读取配置:
 
 ```text
-~/.config/herdr/config.toml
+~/.config/hangar/config.toml
 ```
 
 打印完整的默认配置:
@@ -22,7 +22,7 @@ hangar --default-config
 想要一个完整的起点,可以把它保存为你的配置:
 
 ```bash
-hangar --default-config > ~/.config/herdr/config.toml
+hangar --default-config > ~/.config/hangar/config.toml
 ```
 
 如果某个配置值无效,Hangar 会回退到安全默认值,并在启动时显示警告。
@@ -518,9 +518,9 @@ switch_ascii_input_source_in_prefix = false
 常见日志文件:
 
 ```text
-~/.config/herdr/herdr.log
-~/.config/herdr/herdr-client.log
-~/.config/herdr/herdr-server.log
+~/.config/hangar/hangar.log
+~/.config/hangar/hangar-client.log
+~/.config/hangar/hangar-server.log
 ```
 
 日志自动轮转。报告问题时请附上当前日志和已轮转的同级文件。

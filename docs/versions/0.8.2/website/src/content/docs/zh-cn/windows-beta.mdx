@@ -21,7 +21,7 @@ curl.exe -fsSLo install.cmd https://issance.com/install.cmd && install.cmd && de
 
 Windows 构建同时通过稳定版和预览版更新通道提供。新安装默认使用稳定版,常规使用也建议选择稳定版。现有预览安装会继续留在预览通道,直到你运行 `hangar channel set stable`。如果旧预览构建拒绝该命令,请先在预览通道运行一次 `hangar update`,再重试。预览版会提供来自 `master` 的更新、测试较少的修复,也可能出现回归;只有在接受这一取舍时,才应通过 `hangar channel set preview` 主动启用。
 
-安装器将发布版本保存在 `%USERPROFILE%\.herdr\packages\standalone\releases` 下,让 `%LOCALAPPDATA%\Programs\Hangar\bin` 指向当前版本,并保留少量旧版本,以免运行中的进程阻塞更新。
+安装器将发布版本保存在 `%USERPROFILE%\.hangar\packages\standalone\releases` 下,让 `%LOCALAPPDATA%\Programs\Hangar\bin` 指向当前版本,并保留少量旧版本,以免运行中的进程阻塞更新。
 
 对于内部测试,`HERDR_MANIFEST_URL` 可以让安装器指向自定义清单,而不是 Hangar 的稳定或预览清单。使用自定义预览清单时还应设置 `HERDR_CHANNEL=preview`。
 

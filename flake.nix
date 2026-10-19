@@ -1,5 +1,5 @@
 {
-  description = "herdr — terminal workspace manager for AI coding agents";
+  description = "hangar — terminal workspace manager for AI coding agents";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -74,7 +74,7 @@
 
       checks = forAllSystems (system: {
         herdr = self.packages.${system}.default;
-        default = self.checks.${system}.herdr;
+        default = self.checks.${system}.hangar;
       });
 
       devShells = forAllSystems (

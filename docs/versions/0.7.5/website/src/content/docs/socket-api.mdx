@@ -623,8 +623,8 @@ The default socket lives under your Hangar config directory.
 Named sessions have separate sockets:
 
 ```text
-~/.config/herdr/herdr.sock
-~/.config/herdr/sessions/<name>/herdr.sock
+~/.config/hangar/herdr.sock
+~/.config/hangar/sessions/<name>/herdr.sock
 ```
 
 Resolution order:
@@ -838,7 +838,7 @@ Successful responses look like this:
     "manifests": [
       {
         "agent": "cursor",
-        "source": "/home/me/.config/herdr/agent-detection/cursor.toml",
+        "source": "/home/me/.config/hangar/agent-detection/cursor.toml",
         "source_kind": "local override",
         "active_version": "2026.06.10.1",
         "cached_remote_version": "2026.06.10.1",

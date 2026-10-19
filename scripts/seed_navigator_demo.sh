@@ -9,7 +9,7 @@ Seeds a running hangar server with navigator demo workspaces, tabs, panes,
 and fake agent states for recording the session navigator.
 
 Environment:
-  HERDR_NAV_SOCKET_PATH  API socket to target. Defaults to $HOME/.config/herdr-dev/herdr.sock.
+  HERDR_NAV_SOCKET_PATH  API socket to target. Defaults to $HOME/.config/hangar-dev/herdr.sock.
   HERDR_NAV_CWD          Workspace cwd for created panes. Defaults to the repo root.
   HERDR_NAV_BIN          Hangar binary to call. Defaults to cargo run from the repo.
 USAGE

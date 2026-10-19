@@ -544,7 +544,7 @@ fn server_log_path(config_home: &Path) -> PathBuf {
     } else {
         "herdr"
     };
-    config_home.join(app_dir_name).join("herdr-server.log")
+    config_home.join(app_dir_name).join("hangar-server.log")
 }
 
 fn wait_for_exit(child: &mut Box<dyn Child + Send + Sync>, timeout: Duration) -> bool {

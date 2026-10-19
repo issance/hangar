@@ -15,7 +15,7 @@ Windows 上的 Hangar 使用 ConPTY 和 Windows 的进程/运行时行为,而不
 powershell -ExecutionPolicy Bypass -c "irm https://issance.com/install.ps1 | iex"
 ```
 
-Windows 测试版构建只通过预览通道发布。Windows 安装器默认使用预览通道,把 `channel = "preview"` 写入 Hangar 配置,将发布版本保存在 `%USERPROFILE%\.herdr\packages\standalone\releases` 下,让 `%LOCALAPPDATA%\Programs\Hangar\bin` 指向当前版本,并保留少量旧版本,以免运行中的进程阻塞更新。
+Windows 测试版构建只通过预览通道发布。Windows 安装器默认使用预览通道,把 `channel = "preview"` 写入 Hangar 配置,将发布版本保存在 `%USERPROFILE%\.hangar\packages\standalone\releases` 下,让 `%LOCALAPPDATA%\Programs\Hangar\bin` 指向当前版本,并保留少量旧版本,以免运行中的进程阻塞更新。
 
 对于内部测试,`HERDR_MANIFEST_URL` 可以让安装器指向自定义清单,而不是 Hangar 的稳定或预览清单。
 

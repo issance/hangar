@@ -65,7 +65,7 @@ mod workspace;
 mod worktree;
 
 const DEFAULT_CONFIG: &str = r##"# hangar configuration
-# Place this file at ~/.config/herdr/config.toml
+# Place this file at ~/.config/hangar/config.toml
 
 # Show first-run notification setup on startup.
 # Missing also shows onboarding; set false after you've chosen.
@@ -605,9 +605,9 @@ fn main() -> io::Result<()> {
 
     if args.iter().any(|a| a == "--help" || a == "-h") {
         platform::begin_cli_output();
-        println!("herdr — terminal workspace manager for AI coding agents");
+        println!("hangar — terminal workspace manager for AI coding agents");
         println!();
-        println!("Usage: herdr [options]");
+        println!("Usage: hangar [options]");
         println!("       hangar --session <name> [options]");
         println!("       hangar --machine <label-or-id> <command>");
         println!("       hangar --remote <ssh-target> [--session <name>]");

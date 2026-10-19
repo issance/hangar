@@ -12,7 +12,7 @@ Hangar 无需配置文件即可使用。当你想自定义按键、主题、侧�
 Hangar 从以下位置读取配置：
 
 ```text
-Linux and macOS: ~/.config/herdr/config.toml
+Linux and macOS: ~/.config/hangar/config.toml
 Windows:          %APPDATA%\herdr\config.toml
 ```
 
@@ -27,7 +27,7 @@ hangar --default-config
 如果想从完整配置开始，可以将其保存为你的配置文件：
 
 ```bash
-hangar --default-config > ~/.config/herdr/config.toml
+hangar --default-config > ~/.config/hangar/config.toml
 ```
 
 如果配置值无效，Hangar 会回退到安全的默认值，并显示启动警告。
@@ -309,7 +309,7 @@ tab_bar_right = [
   { type = "hostname" },
   { type = "datetime", format = "%H:%M" },
   { type = "text", text = "prod" },
-  { type = "command", command = "~/.config/herdr/status.sh", interval_seconds = 5, timeout_seconds = 2 },
+  { type = "command", command = "~/.config/hangar/status.sh", interval_seconds = 5, timeout_seconds = 2 },
 ]
 tab_bar_right_separator = " · "
 ```
@@ -574,9 +574,9 @@ switch_ascii_input_source_in_prefix = true
 常见日志文件：
 
 ```text
-~/.config/herdr/herdr.log
-~/.config/herdr/herdr-client.log
-~/.config/herdr/herdr-server.log
+~/.config/hangar/hangar.log
+~/.config/hangar/hangar-client.log
+~/.config/hangar/hangar-server.log
 ```
 
 日志会自动轮转。报告问题时，请附上当前日志和轮转后的同级日志文件。

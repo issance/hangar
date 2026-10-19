@@ -897,7 +897,7 @@ fn run_mouse_conformance() -> Report {
                 .or_default();
 
             let mut herdr = HerdrPath::new(HostProfile::Kitty, &pane_mode);
-            herdr
+            hangar
                 .state
                 .set_pane_surface(mouse_surface(!tracking.is_empty()));
             herdr.state.compose(106, 20).expect("composed frame");
@@ -934,7 +934,7 @@ fn run_mouse_conformance() -> Report {
                                 "{pane_name}\t{mods_label}+{gesture_name}@{column},{row}"
                             ));
                             herdr.reset_client();
-                            herdr
+                            hangar
                                 .state
                                 .set_pane_surface(mouse_surface(!tracking.is_empty()));
                             herdr.state.compose(106, 20).expect("composed frame");
@@ -1280,7 +1280,7 @@ async fn lab_kitty_function_keys_reach_the_pane() {
         (b"\x1b[S", b"\x1bOS"),
     ] {
         let mut herdr = HerdrPath::new(HostProfile::Kitty, b"");
-        let got = herdr
+        let got = hangar
             .feed(host_bytes)
             .expect("function key reaches the pane");
         assert_eq!(show(&got), show(plain_shell), "{}", show(host_bytes));
@@ -1302,7 +1302,7 @@ async fn reporter_text_key_release_reaches_kitty_event_pane() {
     ] {
         let mut herdr = HerdrPath::new(HostProfile::Kitty, pane_mode);
         let press = herdr.feed(press).expect("press reaches the pane");
-        let release = herdr
+        let release = hangar
             .feed(b"\x1b[97;1:3u")
             .expect("release reaches the pane");
         assert_eq!(

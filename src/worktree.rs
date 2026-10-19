@@ -746,11 +746,11 @@ prunable stale
     #[test]
     fn non_windows_tilde_expansion_keeps_windows_separator_literal() {
         assert_eq!(
-            expand_tilde_path_from_env(r"~\.herdr\worktrees", false, |key| match key {
+            expand_tilde_path_from_env(r"~\.hangar\worktrees", false, |key| match key {
                 "HOME" => Some("/home/me".into()),
                 _ => None,
             }),
-            PathBuf::from(r"~\.herdr\worktrees")
+            PathBuf::from(r"~\.hangar\worktrees")
         );
     }
 
@@ -768,15 +768,15 @@ prunable stale
         let default_path = expand_tilde_path_from_env("~/.herdr/worktrees", true, env);
         assert_eq!(
             default_path,
-            PathBuf::from(r"C:\Users\herdr\.herdr\worktrees")
+            PathBuf::from(r"C:\Users\herdr\.hangar\worktrees")
         );
         assert_eq!(
             default_path.display().to_string(),
-            r"C:\Users\herdr\.herdr\worktrees"
+            r"C:\Users\herdr\.hangar\worktrees"
         );
         assert_eq!(
-            expand_tilde_path_from_env(r"~\.herdr\worktrees", true, env),
-            PathBuf::from(r"C:\Users\herdr\.herdr\worktrees")
+            expand_tilde_path_from_env(r"~\.hangar\worktrees", true, env),
+            PathBuf::from(r"C:\Users\herdr\.hangar\worktrees")
         );
     }
 

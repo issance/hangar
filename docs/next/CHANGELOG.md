@@ -555,7 +555,7 @@ This is a hotfix release for v0.9.2. See the v0.9.2 notes for the full feature r
 - Pi and OMP integration state now survives internal session reloads, recovers after resumed sessions such as `omp -c`, and reports Ask/tool approval waits as blocked instead of leaving the pane working or stuck on the previous session. (#800, #879, #984, thanks @dmmulroy)
 - Pi state socket reports are now retried, reducing stale sidebar state when the report races server startup. (#1049)
 - OpenCode now reports subagent permission prompts as blocked and handles object-form `session.status` events. (#838, thanks @soar)
-- Remote attach now discovers compatible Homebrew, mise, and Nix profile installs before offering to install a sidecar binary to `~/.local/bin/herdr`. (#840)
+- Remote attach now discovers compatible Homebrew, mise, and Nix profile installs before offering to install a sidecar binary to `~/.local/bin/hangar`. (#840)
 - `hangar --remote` sessions now keep the remote server in its own login-independent session and preserve compatible running servers after helper binary updates, so network drops should disconnect only the client instead of killing remote panes.
 - `hangar --remote` now reuses one OpenSSH connection across setup probes, installs, server checks, and the final bridge when `[remote].manage_ssh_config` is enabled, so password-based hosts prompt once instead of once per setup command. (#888)
 - Foreground agent session reports can now replace stale saved session references, so resumed panes do not stay tied to an older agent session. (#943)
@@ -791,7 +791,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 - Added Qoder CLI detection, terminal state heuristics, and `hangar integration install qodercli` hook support. (#308, #309, thanks @wayneleelwc)
 
 ### Fixed
-- Remote bootstrap now downloads exact-version release assets for Homebrew and Nix clients instead of copying package-manager-managed local binaries into `~/.local/bin/herdr`.
+- Remote bootstrap now downloads exact-version release assets for Homebrew and Nix clients instead of copying package-manager-managed local binaries into `~/.local/bin/hangar`.
 - `website/latest.json` now stores asset URLs for archived releases under `releases[version].assets`, so remote bootstrap can fetch the current client version even when Homebrew and the top-level latest release are temporarily out of sync.
 - App and server event queues no longer stall under load, improving delivery of pane and agent state updates. (#265)
 - Agent status subscriptions now deliver already-matching states and event-hub notifications reliably for waits and automation. (#288, #295)
@@ -849,7 +849,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 - Keybinding conflict warnings now stay visible and show one readable yellow row per conflicting binding.
 - Update prompts that need to stop a running server now default Enter to yes and show `[Y/n]`.
 - Pending release notes no longer open automatically on startup; the latest notes remain available from the menu.
-- Running `hangar server` directly now prints socket and log paths and explains that normal TUI users should run `herdr`.
+- Running `hangar server` directly now prints socket and log paths and explains that normal TUI users should run `hangar`.
 - Kitty graphics virtual Unicode placeholders now render image placements instead of leaving placeholder cells behind. (#136)
 - Clipboard image reads are now capped to Hangar's image payload limit, preventing oversized local clipboard images from being read into memory.
 - The install script now reads Hangar's public latest-release manifest, so fresh installs use the same binary URLs as `hangar update`.
@@ -885,7 +885,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 - Alt+Backspace is now preserved when forwarded into panes. (#155, #165)
 - Directional pane focus now works while a tab is zoomed. (#151, #167)
 - Agent detection now prefers the foreground process group leader, reducing false matches from child helper processes. (#161, #172)
-- Remote attach now uses a matching `herdr` already available on the remote `PATH` before installing a new copy. (#170)
+- Remote attach now uses a matching `hangar` already available on the remote `PATH` before installing a new copy. (#170)
 - Modified Enter input such as Shift+Enter is now preserved in supported terminals. (#168)
 - Sidebar agent entries now show user-assigned agent names when available. (#145)
 
@@ -976,7 +976,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 
 ### Added
 - Added the `vesper` built-in theme. (#71, thanks @nexxeln)
-- Added `hangar --remote <ssh-target>`, so you can use Hangar as a thin client for remote servers without SSHing in first. Hangar connects over SSH, bootstraps a matching remote `herdr` binary when needed, starts the remote server automatically, and streams an efficient terminal view back to your local terminal.
+- Added `hangar --remote <ssh-target>`, so you can use Hangar as a thin client for remote servers without SSHing in first. Hangar connects over SSH, bootstraps a matching remote `hangar` binary when needed, starts the remote server automatically, and streams an efficient terminal view back to your local terminal.
 
 ### Changed
 - Updated the bundled `libghostty-vt` engine and removed the custom Linux C++ runtime link workaround from static builds.
@@ -1001,7 +1001,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 ## [0.5.4] - 2026-05-03
 
 ### Fixed
-- Visible active-tab panes that finish while the outer terminal is unfocused are now marked as seen when you return to herdr, preventing stale done/attention indicators.
+- Visible active-tab panes that finish while the outer terminal is unfocused are now marked as seen when you return to hangar, preventing stale done/attention indicators.
 - IME candidate windows and mobile SSH cursor tracking now stay anchored to the focused pane during client redraws, including apps that hide the cursor, instead of drifting to sidebar or repaint positions.
 
 ## [0.5.3] - 2026-04-30
@@ -1050,7 +1050,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 ## [0.5.0] - 2026-04-21
 
 ### Breaking Changes Please Read
-- hangar now defaults to a persistent server/client session model. running `herdr` starts or reattaches to a background session server instead of launching the old single-process UI.
+- hangar now defaults to a persistent server/client session model. running `hangar` starts or reattaches to a background session server instead of launching the old single-process UI.
 - quitting the UI in default mode now detaches the current client and leaves the shared session running. use `hangar server stop` to stop the background server explicitly.
 - the old monolithic behavior is still available as an escape hatch with `hangar --no-session`.
 
@@ -1073,7 +1073,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 - The reason for this change is upgrade safety. Hangar needs to stop the old running process cleanly before the new client/server model takes over, so manual update avoids mixed-version states during the transition.
 
 ### Added
-- Hook-reported agent state can now use custom agent labels, so integrations are no longer limited to herdr’s built-in agent names. Custom labels now flow through pane/workspace UI and the socket API anywhere agent names are shown.
+- Hook-reported agent state can now use custom agent labels, so integrations are no longer limited to hangar’s built-in agent names. Custom labels now flow through pane/workspace UI and the socket API anywhere agent names are shown.
 
 ## [0.4.10] - 2026-04-14
 
@@ -1090,14 +1090,14 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 ## [0.4.9] - 2026-04-13
 
 ### Fixed
-- Droid's primary-screen redraws no longer erase pane scrollback inside herdr, while normal scrollback-clear behavior is preserved elsewhere.
+- Droid's primary-screen redraws no longer erase pane scrollback inside hangar, while normal scrollback-clear behavior is preserved elsewhere.
 - `q` is now dedicated to quitting in navigate mode instead of also acting as a generic cancel key in modals and overlays, reducing accidental quits.
 - Tab bar scrolling is tighter: the scroll-right button and new-tab button now sit directly adjacent to the last visible tab without a gap, and manual scroll no longer overscrolls past the last tab.
 
 ## [0.4.8] - 2026-04-12
 
 ### Added
-- Themes can now set `panel_bg = "reset"` to let herdr’s panel chrome inherit the host terminal background instead of painting an opaque panel fill. This also accepts the aliases `default`, `none`, and `transparent`.
+- Themes can now set `panel_bg = "reset"` to let hangar’s panel chrome inherit the host terminal background instead of painting an opaque panel fill. This also accepts the aliases `default`, `none`, and `transparent`.
 - Ghostty-backed panes now preserve the host terminal’s default background when it matches the outer terminal theme, so terminal window transparency can show through pane content instead of being repainted as an opaque color.
 
 ### Fixed
@@ -1303,7 +1303,7 @@ This is a hotfix for v0.6.3. See the v0.6.3 notes for the full feature release.
 - Refined sidebar rollups and pane ordering so workspace status and agent lists stay more stable and predictable.
 
 ### Documentation
-- Refreshed the README, socket API reference, and reusable agent skill docs to better explain herdr's agent multiplexer model and integration surface.
+- Refreshed the README, socket API reference, and reusable agent skill docs to better explain hangar's agent multiplexer model and integration surface.
 
 ## [0.1.2] - 2026-03-28
 

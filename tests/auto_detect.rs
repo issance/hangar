@@ -660,9 +660,9 @@ fn auto_detect_writes_client_and_server_logs_to_separate_files() {
         "herdr"
     };
     let log_dir = config_home.join(app_dir_name);
-    let client_log = log_dir.join("herdr-client.log");
-    let server_log = log_dir.join("herdr-server.log");
-    let monolith_log = log_dir.join("herdr.log");
+    let client_log = log_dir.join("hangar-client.log");
+    let server_log = log_dir.join("hangar-server.log");
+    let monolith_log = log_dir.join("hangar.log");
 
     wait_for_log_contains(
         &client_log,
@@ -678,7 +678,7 @@ fn auto_detect_writes_client_and_server_logs_to_separate_files() {
     let monolith_content = fs::read_to_string(&monolith_log).unwrap_or_default();
     assert!(
         !monolith_content.contains("subsystem=\"client\""),
-        "persistent client logs should not land in herdr.log: {monolith_content}"
+        "persistent client logs should not land in hangar.log: {monolith_content}"
     );
 
     cleanup_spawned_herdr(spawned, base);

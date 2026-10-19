@@ -627,7 +627,7 @@ fn download_update(release: &ReleaseInfo) -> Result<DownloadedUpdate, String> {
     let parent = current_exe.parent().ok_or("can't find binary directory")?;
 
     // Check write permissions early
-    let test_path = parent.join(".herdr-write-test");
+    let test_path = parent.join(".hangar-write-test");
     if let Err(e) = fs::write(&test_path, b"") {
         let _ = fs::remove_file(&test_path);
         return Err(format!(
@@ -639,7 +639,7 @@ fn download_update(release: &ReleaseInfo) -> Result<DownloadedUpdate, String> {
     let _ = fs::remove_file(&test_path);
 
     // Unique temp file (avoids races with concurrent instances)
-    let tmp_path = parent.join(format!(".herdr-update-{}.tmp", std::process::id()));
+    let tmp_path = parent.join(format!(".hangar-update-{}.tmp", std::process::id()));
 
     // Download the exact asset URL (pinned to the release we checked)
     let status = crate::noninteractive_process::curl_command()
