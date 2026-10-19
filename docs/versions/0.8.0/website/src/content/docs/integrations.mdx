@@ -1,0 +1,358 @@
+---
+title: Integrations
+description: Install Hangar integrations for Pi, OMP, Claude Code, Codex, GitHub Copilot CLI, Devin CLI, Droid, Kimi Code CLI, OpenCode, Kilo Code CLI, Hermes Agent, Qoder CLI, Cursor Agent CLI, MastraCode, Antigravity CLI, and Grok CLI.
+---
+
+Hangar detects supported agents automatically. Official integrations can add native session identity for restore, lifecycle state reports, or both.
+
+Use integrations when you want native agent session restore, direct lifecycle reports, or both. See [Agents](/docs/agents/) for the full status authority model.
+
+## Install integrations
+
+Open settings inside Hangar and use the integrations tab to install recommended integrations for agents found on your `PATH`, or run commands manually:
+
+```bash
+hangar integration install pi
+hangar integration install omp
+hangar integration install claude
+hangar integration install codex
+hangar integration install copilot
+hangar integration install devin
+hangar integration install droid
+hangar integration install kimi
+hangar integration install opencode
+hangar integration install kilo
+hangar integration install hermes
+hangar integration install qodercli
+hangar integration install cursor
+hangar integration install mastracode
+hangar integration install antigravity-cli
+hangar integration install grok
+```
+
+## Uninstall integrations
+
+```bash
+hangar integration uninstall pi
+hangar integration uninstall omp
+hangar integration uninstall claude
+hangar integration uninstall codex
+hangar integration uninstall copilot
+hangar integration uninstall devin
+hangar integration uninstall droid
+hangar integration uninstall kimi
+hangar integration uninstall opencode
+hangar integration uninstall kilo
+hangar integration uninstall hermes
+hangar integration uninstall qodercli
+hangar integration uninstall cursor
+hangar integration uninstall mastracode
+hangar integration uninstall antigravity-cli
+hangar integration uninstall grok
+```
+
+## How Hangar uses integrations
+
+Hangar uses integrations in two different ways:
+
+| Integration type | Agents | Effect |
+| --- | --- | --- |
+| Lifecycle authority | Pi, OMP, Kimi Code CLI, OpenCode, Kilo Code CLI, MastraCode | When installed and actively reporting for the pane, hook or plugin events author `idle`, `working`, and `blocked`. Hangar does not also use screen manifest fallback for that same lifecycle authority. |
+| Session identity | Claude Code, Codex, GitHub Copilot CLI, Devin CLI, Droid, Qoder CLI, Cursor Agent CLI, Hermes Agent, Antigravity CLI, Grok CLI | The integration reports native session references for restore. State still comes from Hangar's screen manifest detection. |
+
+Custom integrations can also report state when they define state that is not visible in the native terminal UI. They do not need to be built into Hangar or use a recognized agent executable.
+
+## Integrate your own agent
+
+An agent running in a Hangar pane inherits `HERDR_ENV`, `HERDR_PANE_ID`, `HERDR_BIN_PATH`, and `HERDR_SOCKET_PATH`. If the agent exposes lifecycle hooks, use those hooks to report semantic state through Hangar's CLI:
+
+```bash
+"$HERDR_BIN_PATH" pane report-agent "$HERDR_PANE_ID" \
+  --source custom:my-agent \
+  --agent my-agent \
+  --state working
+```
+
+Report `idle` when the agent is ready for input and `blocked` when it needs a user decision. Use `--message` to describe a block. When the agent exits, release the same source's lifecycle authority:
+
+```bash
+"$HERDR_BIN_PATH" pane release-agent "$HERDR_PANE_ID" \
+  --source custom:my-agent \
+  --agent my-agent
+```
+
+Only report when `HERDR_ENV=1` and the required variables are present so the integration remains a no-op outside Hangar. Keep `--source` stable and unique to the integration. If reports can arrive out of order, include a strictly increasing `--seq`; Hangar ignores stale sequence numbers from the same source.
+
+You can include `--agent-session-id` or `--agent-session-path` with `report-agent`, or use `pane report-agent-session` when session identity changes independently of state. Hangar exposes that reference through its pane and agent APIs. Automatic session restore additionally requires Hangar to know how to launch that agent and resume the referenced session.
+
+Use `HERDR_BIN_PATH` and the CLI wrappers for portable integrations. Code that needs direct IPC can send the equivalent `pane.report_agent`, `pane.report_agent_session`, and `pane.release_agent` requests described in the [Socket API](/docs/socket-api/#agent-state-reporting).
+
+[Prime Agent's built-in Hangar reporter](https://github.com/PrimeIntellect-ai/prime-agent/blob/main/packages/coding-agent/src/core/extensions/builtin/herdr-agent-state.ts) is a real-world example. It activates only inside Hangar, maps agent events to `working`, `idle`, and `blocked`, preserves report ordering across sessions, and releases authority on exit.
+
+Some integrations report native agent session references. Hangar uses official session references to resume Claude Code, Codex, Devin CLI, Droid, Kimi Code CLI, Qoder CLI, Cursor Agent CLI, Grok CLI, GitHub Copilot CLI, Pi, OMP, Hermes Agent, OpenCode, Kilo Code CLI, MastraCode, and Antigravity CLI panes after a Hangar server restart unless `[session] resume_agents_on_restore = false` disables it.
+
+Native session restore requires current Hangar integrations: Pi integration version `2`, OMP version `3`, Claude Code version `6`, Codex version `5`, GitHub Copilot CLI version `2`, Devin CLI version `2`, Droid version `2`, Kimi Code CLI version `3`, Qoder CLI version `2`, Cursor Agent CLI version `1`, Grok CLI version `1`, OpenCode version `5`, Kilo Code CLI version `1`, Hermes Agent version `2`, MastraCode version `1`, or Antigravity CLI version `1`. Check installed versions with `hangar integration status`.
+
+## Pi
+
+Install the Pi integration:
+
+```bash
+hangar integration install pi
+```
+
+Hangar writes the bundled extension to:
+
+```text
+~/.pi/agent/extensions/herdr-agent-state.ts
+```
+
+If `PI_CODING_AGENT_DIR` is set, Hangar writes to `$PI_CODING_AGENT_DIR/extensions/herdr-agent-state.ts` instead. Hangar creates the extensions directory when the Pi agent directory already exists. Uninstall removes only that extension file.
+
+## OMP
+
+Install the OMP integration:
+
+```bash
+hangar integration install omp
+```
+
+Hangar writes the bundled extension to:
+
+```text
+~/.omp/agent/extensions/herdr-omp-agent-state.ts
+```
+
+Hangar uses `PI_CODING_AGENT_DIR` as the complete agent directory when set. Otherwise, it uses `$HOME/$PI_CONFIG_DIR/agent` when `PI_CONFIG_DIR` is set, falling back to `~/.omp/agent`. If Pi and OMP resolve to the same extension directory, Hangar refuses the OMP install so the OMP extension cannot be loaded by Pi. Configure separate agent directories before installing both integrations. Hangar creates the extensions directory when the resolved OMP agent directory already exists. Uninstall removes only that extension file.
+
+The OMP integration reports `omp` as the agent label, lifecycle state, and native session identity through Hangar's socket API. It does not require native process detection for the `omp` executable, and Hangar can resume an OMP pane with `omp --resume=<session>` after a server restart.
+
+## Claude Code
+
+Install the Claude Code hook:
+
+```bash
+hangar integration install claude
+```
+
+The hook reports Claude Code session identity to the local Hangar socket on session start. Claude Code state comes from Hangar's screen manifest detection.
+
+Hangar uses `~/.claude` by default, or `CLAUDE_CONFIG_DIR` when set. The Claude config directory must already exist. Install writes `hooks/herdr-agent-state.sh` and updates `settings.json` with Hangar hook entries. Uninstall removes the matching hook entries and deletes the hook script.
+
+## Codex
+
+Install the Codex hook:
+
+```bash
+hangar integration install codex
+```
+
+The Codex hook reports session identity through the same local socket API used by other integrations. Codex state comes from Hangar's screen manifest detection.
+
+Hangar uses `~/.codex` by default, or `CODEX_HOME` when set. The Codex config directory must already exist. Install writes `herdr-agent-state.sh`, updates `hooks.json`, and ensures `[features] hooks = true` in `config.toml`. It also removes the deprecated top-level `codex_hooks` flag when present. Uninstall removes Hangar entries from `hooks.json` and deletes the hook script, but leaves `config.toml` unchanged.
+
+## GitHub Copilot CLI
+
+Install the GitHub Copilot CLI hook:
+
+```bash
+hangar integration install copilot
+```
+
+The Copilot hook reports session identity through the same local socket API used by other integrations. Copilot state comes from Hangar's screen manifest detection.
+
+Hangar uses `~/.copilot` by default, or `COPILOT_HOME` when set. The Copilot config directory must already exist. Install writes `hooks/herdr-agent-state.sh` and updates `settings.json` with a `SessionStart` hook entry. Uninstall removes Hangar entries from `settings.json` and deletes the hook script.
+
+After Copilot emits a session-bearing event, Hangar can use the reported session id to resume the pane with `copilot --resume=<id>`.
+
+## Devin CLI
+
+Install the Devin CLI hook:
+
+```bash
+hangar integration install devin
+```
+
+The hook reports native session identity from Devin session, prompt, tool-use, permission, and stop events. Devin state still comes from Hangar's screen manifest and OSC detection because Devin hooks do not emit a reliable state transition after every permission cancellation or user interrupt.
+
+Hangar uses `~/.config/devin` by default, or `$XDG_CONFIG_HOME/devin` when `XDG_CONFIG_HOME` is set. The Devin config directory must already exist. Install writes `herdr-agent-state.sh` and updates `config.json` with Hangar hook entries. The hook refreshes the session reference while Devin runs. Uninstall removes Hangar entries from `config.json` and deletes the hook script.
+
+Hangar resumes stored Devin sessions with `devin --resume <id>`. Native screen manifest detection remains the state authority whether or not the hook is installed.
+
+## Kimi Code CLI
+
+Install the Kimi Code CLI hook:
+
+```bash
+hangar integration install kimi
+```
+
+The hook reports Kimi session identity and lifecycle state to Hangar for native restore and authoritative `idle`, `working`, and `blocked` status. It requires Kimi Code CLI `0.14.0` or newer.
+
+Hangar uses `~/.kimi-code` by default, or `KIMI_CODE_HOME` when set. The Kimi Code config directory must already exist. Install writes `hooks/herdr-agent-state.sh` and appends Hangar-managed `[[hooks]]` entries to `config.toml`. Uninstall removes the Hangar-managed config block and deletes the hook script.
+
+Hangar resumes stored Kimi sessions with `kimi --session <id>`.
+
+## Droid
+
+Install the Droid hook:
+
+```bash
+hangar integration install droid
+```
+
+The Droid hook reports session identity through the same local socket API used by other integrations. Lifecycle state still comes from Hangar's screen manifest detection because Droid hooks do not cover every lifecycle transition.
+
+Hangar uses `~/.factory` for Droid hooks. The Factory config directory must already exist. Install writes `hooks/herdr-agent-state.sh`, updates `settings.json` with a Hangar `SessionStart` hook entry, and removes older Hangar Droid hook entries from `hooks.json` if present. Uninstall removes Hangar entries from both config files and deletes the hook script.
+
+After Droid emits a session start event, Hangar can use the reported session id to resume the pane with `droid --resume <id>`.
+
+## OpenCode
+
+Install the OpenCode plugin:
+
+```bash
+hangar integration install opencode
+```
+
+Hangar writes the plugin to `~/.config/opencode/plugins/herdr-agent-state.js`. The OpenCode config directory must already exist. Uninstall removes only that plugin file.
+
+The plugin reports lifecycle state and session identity while OpenCode runs inside a Hangar pane. After OpenCode emits a session-bearing event, Hangar can use the reported session id to resume the pane with `opencode --session <id>`. Native screen manifest detection remains available when the plugin is not installed.
+
+## Kilo Code CLI
+
+Install the Kilo Code CLI plugin:
+
+```bash
+hangar integration install kilo
+```
+
+Hangar writes the plugin to `~/.config/kilo/plugin/herdr-agent-state.js`. The Kilo config directory must already exist. Uninstall removes only that plugin file.
+
+The plugin reports lifecycle state and session identity while Kilo runs inside a Hangar pane. After Kilo emits a session-bearing event, Hangar can use the reported session id to resume the pane with `kilo --session <id>`. Native screen manifest detection remains available when the plugin is not installed.
+
+## Hermes Agent
+
+Install the Hermes Agent plugin:
+
+```bash
+hangar integration install hermes
+```
+
+Hangar writes `~/.hermes/plugins/herdr-agent-state/` and enables `herdr-agent-state` in `~/.hermes/config.yaml`. The Hermes config directory must already exist. Restart Hermes after installing so the plugin loads. Uninstall removes the plugin directory and removes `herdr-agent-state` from `plugins.enabled`.
+
+The plugin reports the resumable session id while Hermes runs inside a Hangar pane. Hangar uses screen manifest detection for `working`, `idle`, and `blocked`, and can use the reported session id to resume the pane with `hermes --resume <id>`.
+
+## Qoder CLI
+
+Install the Qoder CLI hook:
+
+```bash
+hangar integration install qodercli
+```
+
+The hook reports Qoder CLI session identity to Hangar for native restore. Lifecycle state still comes from Hangar's screen manifest detection because Qoder hooks do not cover every lifecycle transition.
+
+Hangar uses `~/.qoder` by default, or `QODER_CONFIG_DIR` when set. The Qoder config directory must already exist. Install writes `hooks/herdr-agent-state.sh` and updates `settings.json` with Hangar hook entries. Uninstall removes the matching hook entries and deletes the hook script.
+
+Hangar resumes stored Qoder CLI sessions with `qodercli --resume <id>`.
+
+Native screen manifest detection remains available when the hook is not installed.
+
+## Cursor Agent CLI
+
+Install the Cursor Agent CLI hook:
+
+```bash
+hangar integration install cursor
+```
+
+The hook reports session identity through Cursor's `sessionStart` hook while Cursor Agent CLI runs inside a Hangar pane. Cursor state comes from Hangar's screen manifest detection.
+
+Hangar uses `~/.cursor` by default, or `CURSOR_CONFIG_DIR` when set. The Cursor config directory must already exist. Install writes `herdr-agent-state.sh` and adds a Hangar `sessionStart` entry to `hooks.json`. Uninstall removes the matching hook entry and deletes the hook script.
+
+After Cursor emits a session start event, Hangar can use the reported session id to resume the pane with `cursor-agent --resume <id>`. The `cursor-agent` command must be on `PATH` when Hangar restores the pane; Hangar does not launch the generic `agent` command.
+
+## MastraCode
+
+Install the MastraCode hook:
+
+```bash
+hangar integration install mastracode
+```
+
+The hook reports MastraCode lifecycle state and thread identity to Hangar for authoritative `idle`, `working`, and `blocked` status and native restore. MastraCode has no screen manifest fallback; state comes from the hook while MastraCode runs inside a Hangar pane.
+
+Hangar uses `~/.mastracode`. Install writes `hooks/herdr-agent-state.sh` and adds Hangar command entries to `hooks.json`, creating the directory when missing. Uninstall removes the matching hook entries and deletes the hook script.
+
+Hangar resumes stored MastraCode threads with `mastracode --thread <id>`.
+
+## Antigravity CLI
+
+Install the Antigravity CLI hook:
+
+```bash
+hangar integration install antigravity-cli
+```
+
+Hangar uses `~/.gemini/config/` by default, or `ANTIGRAVITY_CLI_CONFIG_DIR` when set. This is the directory Antigravity CLI reads global customizations from, and it must already exist. Install writes `hooks/herdr-agent-state.sh` (or `herdr-agent-state.ps1` on Windows) and adds a Hangar-owned `herdr` block to `hooks.json`. Antigravity CLI keys `hooks.json` by hook name, so install rewrites only that block and leaves other named hooks untouched. Uninstall removes the `herdr` block and deletes the hook script.
+
+This integration is session-only. It reports the conversation the pane is running and does not report agent state, so Hangar keeps deriving working, idle, and blocked from what Antigravity CLI draws on screen.
+
+The hook runs on `PreInvocation`, so Hangar learns the conversation once the first prompt is sent. From then on Hangar can resume the pane with `agy --conversation <id>` after a Hangar server restart.
+
+## Grok CLI
+
+Install the Grok CLI hook:
+
+```bash
+hangar integration install grok
+```
+
+The hook reports session identity through Grok's `SessionStart` hook while Grok CLI runs inside a Hangar pane. Grok state comes from Hangar's screen manifest detection.
+
+Hangar uses `~/.grok` by default, or `GROK_HOME` when set. The Grok config directory must already exist. Grok merges every `hooks/*.json` file in that directory, so install writes a self-contained `hooks/herdr.json` with the Hangar `SessionStart` entry next to the `hooks/herdr-agent-state.sh` script, and never edits other hook files. Uninstall removes exactly those two Hangar-owned files.
+
+After Grok emits a session start event, Hangar can use the reported session id to resume the pane with `grok --resume <id>`.
+
+## Custom status labels
+
+Integrations report lifecycle state as semantic state only. For example, report an agent as `working` without adding display fields to the lifecycle report.
+
+```bash
+hangar pane report-agent w1:p1 \
+  --source custom:docs \
+  --agent docs-bot \
+  --state working
+```
+
+User hooks that run next to a Hangar-managed integration should use metadata instead of `report-agent`. Metadata changes presentation without taking over the integration's `idle`, `working`, `blocked`, or session restore authority. `--agent` and `--applies-to-source` guard only presentation fields (`--title`, `--display-agent`, and `--state-label`). Token patches always apply; their reporter owns clearing or TTL refresh. `--display-agent` changes the visible name.
+
+```bash
+hangar pane report-metadata "$HERDR_PANE_ID" \
+  --source user:claude-title \
+  --agent claude \
+  --title "Refactor auth middleware" \
+  --display-agent "Claude: auth" \
+  --token summary="refactor auth" \
+  --state-label working="refactoring auth" \
+  --ttl-ms 3600000
+```
+
+Tokens and state labels are visual-only. Waits, notifications, and workspace rollups still use the semantic state.
+
+## Debug integration state
+
+List known agents:
+
+```bash
+hangar agent list
+```
+
+Read a pane when you need to verify what Hangar can see:
+
+```bash
+hangar pane read w1:p1 --source recent --lines 50
+```
+
+If integration state looks wrong, first confirm the agent is running inside Hangar and that the relevant hook or plugin was installed for the same user account.

@@ -1,0 +1,211 @@
+---
+title: CLI reference
+description: Hangar commands for sessions, workspaces, tabs, panes, agents, waits, integrations, and status.
+---
+
+Hangar’s CLI talks to the running server over the same local socket API used by integrations and agents.
+
+Most commands print JSON responses. Use them from scripts when you want deterministic automation.
+
+## Launch and status
+
+```bash
+herdr                         # launch or attach to the default session
+hangar --session work          # launch or attach to a named session
+hangar --remote workbox        # attach through SSH, using local keybindings
+hangar --remote workbox --remote-keybindings server
+hangar --no-session            # single-process escape hatch
+hangar --default-config        # print default config
+hangar update                  # download and install the latest version
+hangar --version               # print version
+```
+
+Status commands:
+
+```bash
+hangar status
+hangar status server
+hangar status client
+```
+
+## Server
+
+```bash
+hangar server
+hangar server stop
+hangar server reload-config
+```
+
+`hangar server` runs the headless server explicitly. Use it for supervised or service-style setups. `reload-config` applies reloadable settings without restarting panes.
+
+## Sessions
+
+```bash
+hangar session list [--json]
+hangar session attach <name>
+hangar session stop <name> [--json]
+hangar session delete <name> [--json]
+```
+
+Use `default` as the session name when you need to stop the default session explicitly.
+
+## Workspaces
+
+```bash
+hangar workspace list
+hangar workspace create [--cwd PATH] [--label TEXT] [--focus] [--no-focus]
+hangar workspace get <workspace_id>
+hangar workspace focus <workspace_id>
+hangar workspace rename <workspace_id> <label>
+hangar workspace close <workspace_id>
+```
+
+Create a workspace without stealing focus:
+
+```bash
+hangar workspace create --cwd ~/project --label api --no-focus
+```
+
+## Worktrees
+
+```bash
+hangar worktree list [--workspace ID | --cwd PATH] [--json]
+hangar worktree create [--workspace ID | --cwd PATH] [--branch NAME] [--base REF] [--path PATH] [--label TEXT] [--focus] [--no-focus] [--json]
+hangar worktree open [--workspace ID | --cwd PATH] (--path PATH | --branch NAME) [--label TEXT] [--focus] [--no-focus] [--json]
+hangar worktree remove --workspace ID [--force] [--json]
+```
+
+Worktrees are normal Hangar workspaces with Git checkout provenance. `worktree create` creates a Git worktree checkout, opens it as a workspace, and groups it with the parent repo workspace. Without `--path`, Hangar creates the checkout under `<worktrees.directory>/<repo>/<branch-slug>`.
+
+`workspace close` closes Hangar state only. `worktree remove` is the explicit checkout deletion path; it runs `git worktree remove`, never deletes the branch, and requires `--force` when Git refuses a dirty checkout.
+
+## Tabs
+
+```bash
+hangar tab list [--workspace <workspace_id>]
+hangar tab create [--workspace <workspace_id>] [--cwd PATH] [--label TEXT] [--focus] [--no-focus]
+hangar tab get <tab_id>
+hangar tab focus <tab_id>
+hangar tab rename <tab_id> <label>
+hangar tab close <tab_id>
+```
+
+## Panes
+
+```bash
+hangar pane list [--workspace <workspace_id>]
+hangar pane get <pane_id>
+hangar pane rename <pane_id> <label>|--clear
+hangar pane split <pane_id> --direction right|down [--cwd PATH] [--focus] [--no-focus]
+hangar pane close <pane_id>
+```
+
+Read output:
+
+```bash
+hangar pane read <pane_id> [--source visible|recent|recent-unwrapped] [--lines N]
+hangar pane read <pane_id> --source visible --ansi
+hangar pane read <pane_id> --source recent-unwrapped --lines 120
+```
+
+Send input:
+
+```bash
+hangar pane send-text <pane_id> <text>
+hangar pane send-keys <pane_id> <key> [key ...]
+hangar pane run <pane_id> <command>
+```
+
+`pane run` submits text plus Enter atomically. Prefer it over `send-text` plus `send-keys Enter` for commands.
+
+Report agent state from custom hooks:
+
+```bash
+hangar pane report-agent <pane_id> \
+  --source ID \
+  --agent LABEL \
+  --state idle|working|blocked|unknown \
+  [--message TEXT] \
+  [--custom-status TEXT] \
+  [--seq N]
+```
+
+## Agents
+
+```bash
+hangar agent list
+hangar agent get <target>
+hangar agent read <target> [--source visible|recent|recent-unwrapped] [--lines N] [--format text|ansi] [--ansi]
+hangar agent send <target> <text>
+hangar agent rename <target> <name>|--clear
+hangar agent focus <target>
+hangar agent wait <target> --status <idle|working|blocked|unknown> [--timeout MS]
+hangar agent attach <target> [--takeover]
+hangar agent start <name> [--cwd PATH] [--workspace ID] [--tab ID] [--split right|down] [--focus|--no-focus] -- <argv...>
+```
+
+Agent targets can be terminal IDs, unique agent names, detected or reported agent labels, or legacy pane IDs. Names and labels are agent identities. Terminal IDs and legacy pane IDs are low-level escape hatches.
+
+`agent read` reads the resolved terminal stream. `agent send` writes literal text to that stream. `agent get`, `agent focus`, `agent wait`, and `agent attach` require the resolved terminal to have agent identity. `agent rename` can assign that identity.
+
+Use `pane send-text`, `pane send-keys`, `pane run`, and `terminal attach` for ordinary terminals, servers, tests, shells, or low-level terminal control. Use `pane run` when you want to submit a command with Enter.
+
+## Direct terminal attach
+
+```bash
+hangar terminal attach <terminal_id> [--takeover]
+```
+
+Detach from direct attach with `ctrl+b q`. Send literal `ctrl+b` with `ctrl+b ctrl+b`.
+
+## Waits
+
+Wait for output in a pane:
+
+```bash
+hangar wait output <pane_id> --match <text> [--source visible|recent|recent-unwrapped] [--lines N] [--timeout MS] [--regex] [--raw]
+```
+
+Wait for pane agent state:
+
+```bash
+hangar wait agent-status <pane_id> --status <idle|working|blocked|done|unknown> [--timeout MS]
+```
+
+Use `wait output` for normal commands and servers. Use `wait agent-status` for coding agents.
+
+## Integrations
+
+```bash
+hangar integration install pi
+hangar integration install omp
+hangar integration install claude
+hangar integration install codex
+hangar integration install opencode
+hangar integration install hermes
+hangar integration uninstall pi
+hangar integration uninstall omp
+hangar integration uninstall claude
+hangar integration uninstall codex
+hangar integration uninstall opencode
+hangar integration uninstall hermes
+hangar integration status [--outdated-only]
+```
+
+## Read sources
+
+| Source | Meaning |
+| --- | --- |
+| `visible` | Current rendered screen. Best for UI feedback loops. |
+| `recent` | Recent scrollback with terminal wrapping. |
+| `recent-unwrapped` | Recent scrollback without soft wrapping. Best for logs. |
+
+## Environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `HERDR_CONFIG_PATH` | Override the config file path. |
+| `HERDR_SESSION` | Select a named session for CLI commands. |
+| `HERDR_SOCKET_PATH` | Low-level socket path override. |
+| `HERDR_LOG` | Set log filter, for example `HERDR_LOG=herdr=debug`. |
+| `HERDR_DISABLE_SOUND` | Disable sound playback even when sound notifications are enabled. |

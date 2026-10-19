@@ -1,0 +1,133 @@
+---
+title: Install Hangar
+description: Install, update, and verify Hangar on Linux and macOS.
+---
+
+Hangar ships as a single binary for Linux and macOS.
+
+## Install
+
+Run the installer:
+
+```bash
+curl -fsSL https://issance.com/install.sh | sh
+```
+
+The installer downloads the right release binary for your platform and places it on your PATH.
+
+## Install with Homebrew
+
+If you already use Homebrew:
+
+```bash
+brew install hangar
+```
+
+## Install with mise
+
+If you already use mise:
+
+```bash
+mise use -g herdr
+```
+
+## Verify
+
+Start Hangar:
+
+```bash
+herdr
+```
+
+If your shell cannot find `herdr`, restart the terminal or check that the install directory is on your PATH.
+
+## Update
+
+Hangar checks for new releases and notifies you in the app. You can update manually:
+
+```bash
+hangar update
+```
+
+`hangar update` is for installs managed by Hangar's own installer. Homebrew, mise, and Nix installs are updated through those package managers instead.
+
+Hangar uses the stable update channel by default. To opt into preview builds from `master`, set the channel:
+
+```bash
+hangar channel set preview
+```
+
+Switch back to stable the same way:
+
+```bash
+hangar channel set stable
+```
+
+For direct installs, changing channels also checks that channel and installs its latest binary. If that update fails, run `hangar update` to retry from the configured channel.
+
+Preview builds are GitHub prereleases published from the current development branch. They are useful when you want fixes before the next stable release, but they can regress. Homebrew, mise, and Nix installs do not use the preview channel.
+
+By default, `hangar update` installs the new binary and leaves compatible running sessions alone. If an update changes Hangar's client/server protocol, Hangar asks whether to stop the old server after installing. Stop the old server to use the new version. Stopping exits pane processes. For the default session, run `hangar server stop`, then run `herdr` again. For a named session, run `hangar session stop <name>`, then run `hangar session attach <name>` again.
+
+To opt into experimental live server handoff for supported running sessions, run:
+
+```bash
+hangar update --handoff
+```
+
+Live handoff does not apply to Homebrew, mise, or Nix package-manager updates. For those installs, update with the package manager, then restart that Hangar session when you are ready to use the new server. If a running session still uses the old server, stop it with `hangar server stop` or `hangar session stop <name>`, then run Hangar again.
+
+## Install with Nix
+
+If you already use Nix, Hangar provides a flake that builds Hangar from source:
+
+```bash
+nix run github:issance/hangar/v0.x.y
+nix build github:issance/hangar/v0.x.y
+nix profile install github:issance/hangar/v0.x.y
+```
+
+Replace `v0.x.y` with the latest release tag. You can omit the tag to track `master`, but release tags are recommended for normal installs.
+
+The flake also exposes a development shell:
+
+```bash
+nix develop github:issance/hangar
+```
+
+Update through the same Nix workflow you used to install Hangar. For a profile install, list your profile entries and upgrade the Hangar entry:
+
+```bash
+nix profile list
+nix profile upgrade <index-or-name>
+```
+
+If Hangar is an input in your own flake, update that input and rebuild your system, Home Manager, or development environment:
+
+```bash
+nix flake update herdr
+```
+
+## Download manually
+
+You can also download a binary from [GitHub releases](https://github.com/issance/hangar/releases).
+
+Choose the asset that matches your system:
+
+| System | Asset |
+| --- | --- |
+| Linux x86_64 | `herdr-linux-x86_64` |
+| Linux aarch64 | `herdr-linux-aarch64` |
+| macOS Intel | `herdr-macos-x86_64` |
+| macOS Apple silicon | `herdr-macos-aarch64` |
+
+Make it executable and move it somewhere on your PATH.
+
+```bash
+chmod +x herdr-linux-x86_64
+mv herdr-linux-x86_64 ~/.local/bin/herdr
+```
+
+## Requirements
+
+Hangar supports Linux and macOS. Native Windows support is not available yet; use Hangar inside WSL for now.
