@@ -346,7 +346,7 @@ window_title = "{hostname}: {workspace}"
 
 Tokens are `{hostname}`, `{workspace}`, `{tab}`, `{pane}` (the focused pane's manual name), and `{terminal_title}` (the focused pane's own terminal title with spinner frames stripped). Write `{{` and `}}` for literal braces. A token with no value renders empty.
 
-The title renders on the Hangar server, so `{hostname}` names the machine the panes run on, including when you attach with `hangar --remote` or run `herdr` over SSH. Set `window_title = ""` to leave the outer terminal title alone.
+The title renders on the Hangar server, so `{hostname}` names the machine the panes run on, including when you attach with `hangar --remote` or run `hangar` over SSH. Set `window_title = ""` to leave the outer terminal title alone.
 
 `client.window_title.set` overrides the configured title until `client.window_title.clear` hands it back.
 
@@ -492,7 +492,7 @@ delay_seconds = 1
 position = "bottom-right"
 ```
 
-Choose `herdr` for an in-app toast, `terminal` for an outer-terminal notification that also works over SSH, `system` for the local OS notification service, or `off` to disable popups. Hangar suppresses popups for the active tab. Search `ui.toast` in the [Config reference](/docs/config-reference/) for positions, delay behavior, and clipboard feedback settings.
+Choose `hangar` for an in-app toast, `terminal` for an outer-terminal notification that also works over SSH, `system` for the local OS notification service, or `off` to disable popups. Hangar suppresses popups for the active tab. Search `ui.toast` in the [Config reference](/docs/config-reference/) for positions, delay behavior, and clipboard feedback settings.
 
 On macOS, `system` tries `terminal-notifier` first and falls back to `/usr/bin/osascript` when it is unavailable or fails. The fallback appears as Script Editor in Notification Center and cannot activate the hosting terminal. Install `terminal-notifier` with `brew install terminal-notifier`. For a supported, detected terminal, it can activate the terminal app when you click the notification. Alternatively, choose `terminal` to let a supported outer terminal own the notification.
 

@@ -313,7 +313,7 @@ Hangar 用 `mastracode --thread <id>` 恢复保存的 MastraCode 线程。
 hangar integration install antigravity-cli
 ```
 
-Hangar 默认使用 `~/.gemini/config/`,设置了 `ANTIGRAVITY_CLI_CONFIG_DIR` 时使用后者。这是 Antigravity CLI 读取全局自定义配置的目录,并且必须已经存在。安装会写入 `hooks/herdr-agent-state.sh`（Windows 上为 `herdr-agent-state.ps1`）,并向 `hooks.json` 添加由 Hangar 管理的 `herdr` 块。Antigravity CLI 按钩子名称管理 `hooks.json`,因此安装只会重写该块,不会改动其他命名钩子。卸载会移除 `herdr` 块并删除钩子脚本。
+Hangar 默认使用 `~/.gemini/config/`,设置了 `ANTIGRAVITY_CLI_CONFIG_DIR` 时使用后者。这是 Antigravity CLI 读取全局自定义配置的目录,并且必须已经存在。安装会写入 `hooks/herdr-agent-state.sh`（Windows 上为 `herdr-agent-state.ps1`）,并向 `hooks.json` 添加由 Hangar 管理的 `hangar` 块。Antigravity CLI 按钩子名称管理 `hooks.json`,因此安装只会重写该块,不会改动其他命名钩子。卸载会移除 `hangar` 块并删除钩子脚本。
 
 该集成仅上报会话。它会上报窗格当前运行的对话,但不上报智能体状态,因此 Hangar 仍根据 Antigravity CLI 在屏幕上绘制的内容判断 `working`、`idle` 和 `blocked`。
 

@@ -1405,7 +1405,7 @@ fn prompt_to_stop_old_server_after_failed_handoff(
     eprintln!("  server: v{}", version_label(status.version.as_deref()));
     eprintln!("  installed: {}", release.label());
     eprintln!(
-        "you can keep using the old server, or stop it now so the next `herdr` start uses {}.",
+        "you can keep using the old server, or stop it now so the next `hangar` start uses {}.",
         release.label()
     );
     eprintln!("stopping the old server will exit its pane processes.");
@@ -2563,9 +2563,9 @@ mod tests {
             kept_server_notice_lines(&[default], "0.10.0"),
             [
                 "",
-                "your running server is still v0.9.1. run `herdr` to reconnect; everything keeps working.",
+                "your running server is still v0.9.1. run `hangar` to reconnect; everything keeps working.",
                 "server fixes in v0.10.0 apply only after it restarts.",
-                "when your agents are idle, run `hangar server stop`, then `herdr`.",
+                "when your agents are idle, run `hangar server stop`, then `hangar`.",
                 "this closes running panes and their agents.",
             ]
         );
@@ -2588,7 +2588,7 @@ mod tests {
                 "",
                 "your running servers are still older. reconnect as usual; everything keeps working.",
                 "server fixes in v0.10.0 apply only after each one restarts:",
-                "  default  v0.9.1  `hangar server stop`, then `herdr`",
+                "  default  v0.9.1  `hangar server stop`, then `hangar`",
                 "  work     v0.9.0  `hangar session stop work`, then `hangar session attach work`",
                 "restart one when its agents are idle. this closes its panes and their agents.",
             ]

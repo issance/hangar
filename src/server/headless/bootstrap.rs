@@ -223,11 +223,11 @@ fn run_handoff_import_server(_socket_path: &Path, _token: &str) -> io::Result<()
 
 fn print_ready_message(api_socket: &Path, client_socket: &Path) {
     let message = format!(
-        "hangar server running; you can use any herdr CLI command in another terminal.\n\
+        "hangar server running; you can use any hangar CLI command in another terminal.\n\
          api socket: {}\n\
          client socket: {}\n\
          logs: {}\n\
-         did you mean to open the Hangar TUI? run `herdr`; you do not need `hangar server`.\n",
+         did you mean to open the Hangar TUI? run `hangar`; you do not need `hangar server`.\n",
         api_socket.display(),
         client_socket.display(),
         crate::session::data_dir()

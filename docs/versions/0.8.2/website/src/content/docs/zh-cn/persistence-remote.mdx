@@ -9,7 +9,7 @@ Hangar 让窗格在后台服务器中持续运行。你的终端客户端可以�
 
 ## 分离与重新连接
 
-用 `ctrl+b q` 分离客户端;窗格和智能体继续运行。再次运行 `herdr` 即可重新连接。用 `hangar server stop` 停止会话及其窗格。
+用 `ctrl+b q` 分离客户端;窗格和智能体继续运行。再次运行 `hangar` 即可重新连接。用 `hangar server stop` 停止会话及其窗格。
 
 在服务器完全停止后再次启动时,Hangar 会恢复保存的会话形态。关于分离、服务器重启、屏幕历史回放、智能体原生会话恢复和实时交接各自能保留什么,参见[会话状态与恢复](/zh-cn/docs/session-state/)。
 
@@ -37,7 +37,7 @@ hangar session delete side-project --json
 
 ## 通过 SSH 远程连接
 
-远程模式有两种;[使用 Hangar 的工作方式](/zh-cn/docs/how-to-work/)对它们做了比较。tmux 风格的路径是 SSH 到服务器并在那里运行 `herdr`。另一种是从本地机器通过 SSH 连接:
+远程模式有两种;[使用 Hangar 的工作方式](/zh-cn/docs/how-to-work/)对它们做了比较。tmux 风格的路径是 SSH 到服务器并在那里运行 `hangar`。另一种是从本地机器通过 SSH 连接:
 
 ```bash
 hangar --remote workbox
@@ -63,7 +63,7 @@ Host workbox
 hangar --remote workbox
 ```
 
-远程连接支持 Linux、macOS 和 Windows 本地客户端连接 x86_64 与 aarch64 的 Linux 和 macOS 主机。Hangar 会检查远程平台,优先使用远程 `PATH` 上已有的匹配 `herdr`,然后检查常见的直接安装、Homebrew、mise 和 Nix profile 路径。如果没有匹配的二进制文件,交互式运行会询问是否安装到 `~/.local/bin/herdr`;非交互式运行则直接失败,不会修改主机。如果 `~/.local/bin` 不在远程 `PATH` 上,Hangar 会在安装后发出警告。Windows 不能作为远程主机。
+远程连接支持 Linux、macOS 和 Windows 本地客户端连接 x86_64 与 aarch64 的 Linux 和 macOS 主机。Hangar 会检查远程平台,优先使用远程 `PATH` 上已有的匹配 `hangar`,然后检查常见的直接安装、Homebrew、mise 和 Nix profile 路径。如果没有匹配的二进制文件,交互式运行会询问是否安装到 `~/.local/bin/herdr`;非交互式运行则直接失败,不会修改主机。如果 `~/.local/bin` 不在远程 `PATH` 上,Hangar 会在安装后发出警告。Windows 不能作为远程主机。
 
 默认情况下,`hangar --remote` 通过一个临时 SSH 配置运行远程设置和桥接: 先包含你的 SSH 配置,再补充兜底的保活设置。已有的用户保活设置优先。Linux 和 macOS 客户端还会添加一个私有的单次连接 control socket 来复用连接;Windows OpenSSH 不使用此方式。设置 `[remote].manage_ssh_config = false` 可以不用 Hangar 生成的配置或 control socket,而使用普通 `ssh`。
 
@@ -73,7 +73,7 @@ hangar --remote workbox
 hangar --remote workbox --handoff
 ```
 
-如果你先 SSH 到服务器再在那里运行 `herdr`,Hangar 就完全运行在服务器上。这种模式简单实用,但除了普通的终端文本粘贴之外,它无法访问你本地桌面的剪贴板。
+如果你先 SSH 到服务器再在那里运行 `hangar`,Hangar 就完全运行在服务器上。这种模式简单实用,但除了普通的终端文本粘贴之外,它无法访问你本地桌面的剪贴板。
 
 当本地和远程平台一致时,对于直接安装,Hangar 可以直接复制当前本地二进制文件。对于 Homebrew、mise 和 Nix 安装,或平台不一致时,它会从 `https://updates.issance.com/hangar/latest.json` 下载与当前客户端版本匹配的发布产物。
 

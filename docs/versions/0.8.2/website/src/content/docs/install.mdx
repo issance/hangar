@@ -109,7 +109,7 @@ Start Hangar:
 herdr
 ```
 
-If your shell cannot find `herdr`, restart the terminal or check that the install directory is on your PATH.
+If your shell cannot find `hangar`, restart the terminal or check that the install directory is on your PATH.
 
 ## Update
 
@@ -139,7 +139,7 @@ Preview builds are regularly published GitHub prereleases from the current devel
 
 Stable is the recommended channel for normal Windows use. Preview receives fixes sooner but can regress, so opt in only when you want that tradeoff. Existing Windows preview installs remain on preview until you switch them explicitly. If an older preview build rejects `hangar channel set stable`, run `hangar update` once on preview, then retry the channel switch.
 
-By default, `hangar update` installs the new binary and leaves compatible running sessions alone. If an update changes Hangar's client/server protocol, Hangar asks whether to stop the old server after installing. Stop the old server to use the new version. Stopping the server exits its pane processes. For the default session, run `hangar server stop`, then run `herdr` again. For a named session, run `hangar session stop <name>`, then run `hangar session attach <name>` again.
+By default, `hangar update` installs the new binary and leaves compatible running sessions alone. If an update changes Hangar's client/server protocol, Hangar asks whether to stop the old server after installing. Stop the old server to use the new version. Stopping the server exits its pane processes. For the default session, run `hangar server stop`, then run `hangar` again. For a named session, run `hangar session stop <name>`, then run `hangar session attach <name>` again.
 
 To opt into experimental live server handoff for supported running sessions, run:
 

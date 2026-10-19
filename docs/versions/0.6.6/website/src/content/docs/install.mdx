@@ -31,7 +31,7 @@ Start Hangar:
 herdr
 ```
 
-If your shell cannot find `herdr`, restart the terminal or check that the install directory is on your PATH.
+If your shell cannot find `hangar`, restart the terminal or check that the install directory is on your PATH.
 
 ## Update
 
@@ -43,7 +43,7 @@ hangar update
 
 `hangar update` is for installs managed by Hangar's own installer. Homebrew and Nix installs are updated through those package managers instead.
 
-By default, `hangar update` installs the new binary and leaves compatible running sessions alone. If an update changes Hangar's client/server protocol, Hangar asks whether to stop the old server after installing. Stop the old server to use the new version. Stopping exits pane processes. For the default session, run `hangar server stop`, then run `herdr` again. For a named session, run `hangar session stop <name>`, then run `hangar session attach <name>` again.
+By default, `hangar update` installs the new binary and leaves compatible running sessions alone. If an update changes Hangar's client/server protocol, Hangar asks whether to stop the old server after installing. Stop the old server to use the new version. Stopping exits pane processes. For the default session, run `hangar server stop`, then run `hangar` again. For a named session, run `hangar session stop <name>`, then run `hangar session attach <name>` again.
 
 To opt into experimental live server handoff for supported running sessions, run:
 

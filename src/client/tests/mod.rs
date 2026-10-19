@@ -665,7 +665,7 @@ fn client_error_display_detached_default_session_reattach_hint() {
     };
     let msg = err.to_string();
     assert!(
-        msg.contains("Run `herdr` to reattach"),
+        msg.contains("Run `hangar` to reattach"),
         "should suggest default reattach command: {msg}"
     );
 }

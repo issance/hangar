@@ -109,7 +109,7 @@ mv herdr-linux-x86_64 ~/.local/bin/herdr
 herdr
 ```
 
-如果 shell 找不到 `herdr`,重启终端,或检查安装目录是否在 PATH 上。
+如果 shell 找不到 `hangar`,重启终端,或检查安装目录是否在 PATH 上。
 
 ## 更新
 
@@ -139,7 +139,7 @@ hangar channel set stable
 
 Windows 的常规使用建议选择稳定版。预览版能更早获得修复,但可能出现回归,因此只有在接受这一取舍时才应主动启用。现有的 Windows 预览安装会继续留在预览通道,直到你明确切换。如果旧预览构建拒绝 `hangar channel set stable`,请先在预览通道运行一次 `hangar update`,再重试切换通道。
 
-默认情况下,`hangar update` 安装新二进制文件,并不打扰兼容的运行中会话。如果某次更新改变了 Hangar 的客户端/服务器协议,Hangar 会在安装后询问是否停止旧服务器。要使用新版本,请停止旧服务器。停止会退出窗格进程。对于默认会话,运行 `hangar server stop`,再运行 `herdr`。对于命名会话,运行 `hangar session stop <name>`,再运行 `hangar session attach <name>`。
+默认情况下,`hangar update` 安装新二进制文件,并不打扰兼容的运行中会话。如果某次更新改变了 Hangar 的客户端/服务器协议,Hangar 会在安装后询问是否停止旧服务器。要使用新版本,请停止旧服务器。停止会退出窗格进程。对于默认会话,运行 `hangar server stop`,再运行 `hangar`。对于命名会话,运行 `hangar session stop <name>`,再运行 `hangar session attach <name>`。
 
 要对受支持的运行中会话启用实验性的实时服务器交接,运行:
 

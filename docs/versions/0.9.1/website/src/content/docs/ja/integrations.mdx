@@ -337,7 +337,7 @@ Antigravity CLI フックをインストールします:
 hangar integration install antigravity-cli
 ```
 
-Hangar はデフォルトで `~/.gemini/config/` を使い、`ANTIGRAVITY_CLI_CONFIG_DIR` が設定されていればそちらを使います。これは Antigravity CLI がグローバルカスタマイズを読み込むディレクトリで、あらかじめ存在している必要があります。インストールは `hooks/herdr-agent-state.sh`（Windows では `herdr-agent-state.ps1`）を書き込み、`hooks.json` に Hangar 所有の `herdr` ブロックを追加します。Antigravity CLI は `hooks.json` をフック名で管理するため、インストールはそのブロックだけを書き換え、ほかの名前付きフックには触れません。アンインストールは `herdr` ブロックとフックスクリプトを削除します。
+Hangar はデフォルトで `~/.gemini/config/` を使い、`ANTIGRAVITY_CLI_CONFIG_DIR` が設定されていればそちらを使います。これは Antigravity CLI がグローバルカスタマイズを読み込むディレクトリで、あらかじめ存在している必要があります。インストールは `hooks/herdr-agent-state.sh`（Windows では `herdr-agent-state.ps1`）を書き込み、`hooks.json` に Hangar 所有の `hangar` ブロックを追加します。Antigravity CLI は `hooks.json` をフック名で管理するため、インストールはそのブロックだけを書き換え、ほかの名前付きフックには触れません。アンインストールは `hangar` ブロックとフックスクリプトを削除します。
 
 このインテグレーションはセッション専用です。ペインで実行中の会話を報告しますが、エージェント状態は報告しません。そのため、Hangar は Antigravity CLI の画面表示から `working`、`idle`、`blocked` を引き続き判定します。
 

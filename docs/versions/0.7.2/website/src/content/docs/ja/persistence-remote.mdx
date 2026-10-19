@@ -9,7 +9,7 @@ Hangar はペインをバックグラウンドサーバーで動かし続けま�
 
 ## デタッチと再アタッチ
 
-`ctrl+b q` でクライアントをデタッチします。ペインとエージェントは動き続けます。再度 `herdr` を実行すると再アタッチします。セッションとそのペインを停止するには `hangar server stop` を使います。
+`ctrl+b q` でクライアントをデタッチします。ペインとエージェントは動き続けます。再度 `hangar` を実行すると再アタッチします。セッションとそのペインを停止するには `hangar server stop` を使います。
 
 サーバーの完全停止後に Hangar が再起動すると、保存されたセッションの形を復元します。デタッチ、サーバー再起動、画面履歴リプレイ、エージェントネイティブのセッション復元、ライブハンドオフでそれぞれ何が生き残るかは[セッション状態と復元](/ja/docs/session-state/)を参照してください。
 
@@ -37,7 +37,7 @@ hangar session delete side-project --json
 
 ## SSH 越しのリモートアタッチ
 
-リモートモードは 2 つあり、[Hangar での作業の進め方](/ja/docs/how-to-work/)で比較しています。tmux スタイルの方法では、サーバーに SSH してそこで `herdr` を実行します。もうひとつは、ローカルマシンから SSH 越しにアタッチする方法です:
+リモートモードは 2 つあり、[Hangar での作業の進め方](/ja/docs/how-to-work/)で比較しています。tmux スタイルの方法では、サーバーに SSH してそこで `hangar` を実行します。もうひとつは、ローカルマシンから SSH 越しにアタッチする方法です:
 
 ```bash
 hangar --remote workbox
@@ -63,9 +63,9 @@ Host workbox
 hangar --remote workbox
 ```
 
-リモートアタッチは x86_64 と aarch64 の Linux および macOS ホストをサポートします。Hangar はリモートのプラットフォームを確認し、リモートの `PATH` 上にある一致する `herdr` を優先し、次に `~/.local/bin/herdr` を確認します。一致するバイナリがない場合、対話的な実行では `~/.local/bin/herdr` へのインストールを提案します。非対話的な実行はホストを変更せずに失敗します。`~/.local/bin` がリモートの `PATH` にない場合、Hangar はインストール後に警告します。
+リモートアタッチは x86_64 と aarch64 の Linux および macOS ホストをサポートします。Hangar はリモートのプラットフォームを確認し、リモートの `PATH` 上にある一致する `hangar` を優先し、次に `~/.local/bin/herdr` を確認します。一致するバイナリがない場合、対話的な実行では `~/.local/bin/herdr` へのインストールを提案します。非対話的な実行はホストを変更せずに失敗します。`~/.local/bin` がリモートの `PATH` にない場合、Hangar はインストール後に警告します。
 
-ネイティブ Windows の `hangar --remote` は Windows ベータの範囲外です。Windows からはサーバーに SSH してそこで `herdr` を実行してください。
+ネイティブ Windows の `hangar --remote` は Windows ベータの範囲外です。Windows からはサーバーに SSH してそこで `hangar` を実行してください。
 
 デフォルトでは、`hangar --remote` はあなたの SSH config を最初に include し、その後にフォールバックのキープアライブ設定を加えた一時的な SSH config を通してブリッジを実行します。既存のユーザーのキープアライブ設定が優先されます。Hangar が生成するブリッジ設定を使わず素の `ssh` を使うには `[remote].manage_ssh_config = false` を設定してください。
 
@@ -75,7 +75,7 @@ hangar --remote workbox
 hangar --remote workbox --handoff
 ```
 
-先にサーバーへ SSH してそこで `herdr` を実行した場合、Hangar は完全にサーバー上で動きます。このモードは便利でシンプルですが、通常のターミナルテキスト貼り付けを超えてローカルデスクトップのクリップボードにはアクセスできません。
+先にサーバーへ SSH してそこで `hangar` を実行した場合、Hangar は完全にサーバー上で動きます。このモードは便利でシンプルですが、通常のターミナルテキスト貼り付けを超えてローカルデスクトップのクリップボードにはアクセスできません。
 
 ローカルとリモートのプラットフォームが一致する場合、直接インストールでは Hangar は現在のローカルバイナリをコピーできます。Homebrew、mise、Nix のインストールの場合、またはプラットフォームが異なる場合は、`https://updates.issance.com/hangar/latest.json` から現在のクライアントバージョンに一致するリリースアセットをダウンロードします。
 

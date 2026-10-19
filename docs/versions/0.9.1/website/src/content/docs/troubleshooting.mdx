@@ -95,7 +95,7 @@ An older server can survive logout while losing user lookup and DNS. Symptoms in
 
 If a newly started server still has this problem, check `hangar-server.log` for `could not select persistent user service context`. Hangar keeps the inherited context if the required macOS APIs are unavailable. See [Hangar issue #4100](https://github.com/herdrdev/herdr/issues/4100).
 
-## The `herdr` command is not found
+## The `hangar` command is not found
 
 Restart the terminal so it reloads its environment, then confirm the Hangar install directory is on `PATH`. For package-manager installs, use that package manager to update Hangar and expose it on `PATH`. See [Install Hangar](/docs/install/#verify).
 

@@ -1,6 +1,6 @@
-//! Auto-detect launch behavior for the `herdr` command.
+//! Auto-detect launch behavior for the `hangar` command.
 //!
-//! When the user runs `herdr` with no subcommand:
+//! When the user runs `hangar` with no subcommand:
 //! 1. Check if a server is already listening on the client socket
 //! 2. If no server → spawn one as a background daemon → wait for socket readiness (up to 15s)
 //! 3. Attach as a client to the server
@@ -26,7 +26,7 @@ const SOCKET_POLL_INTERVAL: Duration = Duration::from_millis(50);
 const STATUS_REQUEST_TIMEOUT: Duration = Duration::from_secs(2);
 
 /// Private daemon-start hint used to seed a fresh headless server from the
-/// directory where the user ran `herdr`.
+/// directory where the user ran `hangar`.
 pub(crate) const STARTUP_CWD_ENV_VAR: &str = "HERDR_STARTUP_CWD";
 
 // ---------------------------------------------------------------------------
@@ -280,7 +280,7 @@ pub fn wait_for_server_socket(socket_path: &Path, timeout: Duration) -> io::Resu
     Err(io::Error::new(
         io::ErrorKind::TimedOut,
         format!(
-            "server did not become ready within {}s (socket: {}). The background server may still be starting; try `herdr` again, or check {}",
+            "server did not become ready within {}s (socket: {}). The background server may still be starting; try `hangar` again, or check {}",
             timeout.as_secs(),
             socket_path.display(),
             crate::session::data_dir().join("hangar-server.log").display()
@@ -295,7 +295,7 @@ pub fn wait_for_server_socket(socket_path: &Path, timeout: Duration) -> io::Resu
 /// Performs auto-detect launch: check for server, spawn if needed, then
 /// attach as a thin client.
 ///
-/// This is the entry point called from `main.rs` when the user runs `herdr`
+/// This is the entry point called from `main.rs` when the user runs `hangar`
 /// without a subcommand.
 ///
 /// Flow:

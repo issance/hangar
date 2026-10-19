@@ -311,7 +311,7 @@ Install the Antigravity CLI hook:
 hangar integration install antigravity-cli
 ```
 
-Hangar uses `~/.gemini/config/` by default, or `ANTIGRAVITY_CLI_CONFIG_DIR` when set. This is the directory Antigravity CLI reads global customizations from, and it must already exist. Install writes `hooks/herdr-agent-state.sh` (or `herdr-agent-state.ps1` on Windows) and adds a Hangar-owned `herdr` block to `hooks.json`. Antigravity CLI keys `hooks.json` by hook name, so install rewrites only that block and leaves other named hooks untouched. Uninstall removes the `herdr` block and deletes the hook script.
+Hangar uses `~/.gemini/config/` by default, or `ANTIGRAVITY_CLI_CONFIG_DIR` when set. This is the directory Antigravity CLI reads global customizations from, and it must already exist. Install writes `hooks/herdr-agent-state.sh` (or `herdr-agent-state.ps1` on Windows) and adds a Hangar-owned `hangar` block to `hooks.json`. Antigravity CLI keys `hooks.json` by hook name, so install rewrites only that block and leaves other named hooks untouched. Uninstall removes the `hangar` block and deletes the hook script.
 
 This session-only integration reports the pane's current conversation, but not agent state. Hangar keeps deriving working, idle, and blocked from what Antigravity CLI draws on screen.
 

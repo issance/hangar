@@ -40,7 +40,7 @@ ssh you@server
 herdr
 ```
 
-这和终端复用器的用法一样。你的 shell 在远程,Hangar 服务器在远程,智能体和窗格都运行在远程机器上。用 `ctrl+b q` 分离并断开连接,之后再 SSH 回去,重新运行 `herdr`。
+这和终端复用器的用法一样。你的 shell 在远程,Hangar 服务器在远程,智能体和窗格都运行在远程机器上。用 `ctrl+b q` 分离并断开连接,之后再 SSH 回去,重新运行 `hangar`。
 
 当你本来就工作在 SSH shell 里、在手机或平板的 SSH 客户端上,或者想要最简单的配置时,用这条路径。
 
@@ -79,7 +79,7 @@ hangar --remote ssh://you@server:2222
 
 你本地的 Hangar 充当瘦客户端。它通过 SSH 连接,启动或连接远程 Hangar 服务器,并把 UI 流式传回你的本地终端。
 
-想让远程会话用起来像本地时,用这条路径。客户端运行在你的机器上,所以图像剪贴板粘贴等本地桌面功能可以桥接到远程服务器。如果你先 SSH 再在服务器上运行 `herdr`,Hangar 就完全运行在那台服务器上,无法读取你本地桌面的剪贴板。
+想让远程会话用起来像本地时,用这条路径。客户端运行在你的机器上,所以图像剪贴板粘贴等本地桌面功能可以桥接到远程服务器。如果你先 SSH 再在服务器上运行 `hangar`,Hangar 就完全运行在那台服务器上,无法读取你本地桌面的剪贴板。
 
 对于经常连接的目标,把主机写进 SSH 配置:
 
@@ -98,6 +98,6 @@ hangar --remote workbox
 
 ## 该用哪条路径
 
-本地工作用 `herdr`。想让 Hangar 在远程 shell 上表现得像 tmux,或者在用手机 SSH 客户端时,用 `ssh you@server` 再 `herdr`。想要一个连接远程会话的本地瘦客户端 (包括本地剪贴板图像粘贴桥接) 时,用 `hangar --remote <host>`。
+本地工作用 `hangar`。想让 Hangar 在远程 shell 上表现得像 tmux,或者在用手机 SSH 客户端时,用 `ssh you@server` 再 `hangar`。想要一个连接远程会话的本地瘦客户端 (包括本地剪贴板图像粘贴桥接) 时,用 `hangar --remote <host>`。
 
 关于远程引导细节、命名远程会话、自定义二进制、直接终端附加和 `--no-session`,参见[持久化与远程访问](/zh-cn/docs/persistence-remote/)。

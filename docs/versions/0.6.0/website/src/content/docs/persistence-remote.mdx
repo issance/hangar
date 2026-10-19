@@ -86,9 +86,9 @@ Then attach with:
 hangar --remote workbox
 ```
 
-Remote attach supports Linux and macOS hosts on x86_64 and aarch64. Hangar checks the remote platform, prefers a matching `herdr` already on the remote `PATH`, then checks `~/.local/bin/herdr`. If no matching binary exists, interactive runs prompt to install one to `~/.local/bin/herdr`; non-interactive runs fail instead of modifying the host. If `~/.local/bin` is not on the remote `PATH`, Hangar warns after install.
+Remote attach supports Linux and macOS hosts on x86_64 and aarch64. Hangar checks the remote platform, prefers a matching `hangar` already on the remote `PATH`, then checks `~/.local/bin/herdr`. If no matching binary exists, interactive runs prompt to install one to `~/.local/bin/herdr`; non-interactive runs fail instead of modifying the host. If `~/.local/bin` is not on the remote `PATH`, Hangar warns after install.
 
-If you SSH into the server first and run `herdr` there, Hangar runs entirely on the server. That mode is useful and simple, but it cannot access your local desktop clipboard beyond normal terminal text paste.
+If you SSH into the server first and run `hangar` there, Hangar runs entirely on the server. That mode is useful and simple, but it cannot access your local desktop clipboard beyond normal terminal text paste.
 
 When your local and remote platforms match, Hangar can copy the current local binary. Otherwise it downloads the matching release asset from `https://updates.issance.com/hangar/latest.json`.
 
