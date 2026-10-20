@@ -383,7 +383,7 @@ def build_local_bundle(metadata_path: Path) -> None:
             elif (
                 message.get("reason") == "compiler-artifact"
                 and message["manifest_path"] == str(PROJECT_ROOT / "Cargo.toml")
-                and message["target"]["name"] == "herdr"
+                and message["target"]["name"] == "hangar"
                 and "bin" in message["target"]["kind"]
             ):
                 executable = Path(message["executable"])
