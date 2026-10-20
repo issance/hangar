@@ -22,8 +22,8 @@ use std::time::{Duration, Instant};
 use interprocess::local_socket::traits::Stream as _;
 use serde::{Deserialize, Deserializer};
 
-const STABLE_UPDATE_MANIFEST_URL: &str = "https://updates.issance.com/hangar/latest.json";
-const PREVIEW_UPDATE_MANIFEST_URL: &str = "https://updates.issance.com/hangar/preview.json";
+const STABLE_UPDATE_MANIFEST_URL: &str = "https://issance.com/updates/hangar/latest.json";
+const PREVIEW_UPDATE_MANIFEST_URL: &str = "https://issance.com/updates/hangar/preview.json";
 const HOMEBREW_FORMULA_API_URL: &str = "https://formulae.brew.sh/api/formula/hangar.json";
 const HERDR_UPDATE_COMMAND: &str = "hangar update";
 const HOMEBREW_UPDATE_COMMAND: &str = "brew update && brew upgrade hangar";

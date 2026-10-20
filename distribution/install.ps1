@@ -780,9 +780,9 @@ if ($useLocalPackage) {
 
     if ([string]::IsNullOrWhiteSpace($ManifestUrl)) {
         $ManifestUrl = if ($Channel -eq "preview") {
-            "https://updates.issance.com/hangar/preview.json"
+            "https://issance.com/updates/hangar/preview.json"
         } else {
-            "https://updates.issance.com/hangar/latest.json"
+            "https://issance.com/updates/hangar/latest.json"
         }
     }
 

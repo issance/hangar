@@ -2,7 +2,7 @@
 set -eu
 
 BIN="herdr"
-MANIFEST_URL="https://updates.issance.com/hangar/latest.json"
+MANIFEST_URL="https://issance.com/updates/hangar/latest.json"
 INSTALL_DIR="${HERDR_INSTALL_DIR:-$HOME/.local/bin}"
 
 main() {
