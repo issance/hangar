@@ -44,7 +44,8 @@ jobs:
           Copy-Item LICENSE, NOTICE-ISSANCE.md $stage
           tar -czf hangar-windows-x64.tar.gz -C $stage .
           foreach ($f in "hangar-windows-x64.tar.gz", "hangar-windows-x86_64.zip") {
-            (Get-FileHash $f -Algorithm SHA256).Hash.ToLower() + "  $f" | Out-File -Encoding ascii "$f.sha256"
+            # LF only: shasum -c on Mac and Linux reads a CRLF line as a file name ending in \r.
+            [IO.File]::WriteAllText("$PWD\$f.sha256", (Get-FileHash $f -Algorithm SHA256).Hash.ToLower() + "  $f`n")
           }
       - uses: actions/upload-artifact@v4
         with:
