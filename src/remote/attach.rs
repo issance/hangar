@@ -3070,7 +3070,7 @@ impl SshStdioBridge {
                             if noninteractive {
                                 tracing::warn!(error = %err, "saved SSH endpoint bridge failed");
                             } else {
-                                eprintln!("herdr: remote bridge failed: {err}");
+                                eprintln!("hangar: remote bridge failed: {err}");
                             }
                         }
                     }
@@ -3081,7 +3081,7 @@ impl SshStdioBridge {
                         if noninteractive {
                             tracing::warn!(error = %err, "saved SSH endpoint listener failed");
                         } else {
-                            eprintln!("herdr: remote bridge listener failed: {err}");
+                            eprintln!("hangar: remote bridge listener failed: {err}");
                         }
                         break;
                     }

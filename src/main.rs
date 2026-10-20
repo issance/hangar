@@ -724,7 +724,7 @@ fn main() -> io::Result<()> {
 
     if args.iter().any(|a| a == "--version" || a == "-V") {
         platform::begin_cli_output();
-        println!("herdr {}", crate::build_info::version());
+        println!("hangar {}", crate::build_info::version());
         return Ok(());
     }
 
@@ -800,7 +800,7 @@ fn main() -> io::Result<()> {
     let saved_federation =
         client::endpoint::EndpointCatalog::load().is_ok_and(|catalog| catalog.has_enabled_ssh());
     if let Err(err) = server::autodetect::auto_detect_launch(saved_federation) {
-        eprintln!("herdr: {err}");
+        eprintln!("hangar: {err}");
         std::process::exit(1);
     }
     Ok(())
